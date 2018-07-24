@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +13,203 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Filters" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8cu-EJ-zwj" userLabel="CameraView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mrc-28-MpO" userLabel="CameraPreview">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
+                                    </view>
+                                    <view alpha="0.0" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IWj-lo-5ha" userLabel="CaptureEffectView">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Focus Area Default Image" translatesAutoresizingMaskIntoConstraints="NO" id="zMh-Gj-ePw" userLabel="FocusAreaDefaultImage">
+                                        <rect key="frame" x="88" y="-100" width="200" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="5wy-an-yUP"/>
+                                            <constraint firstAttribute="height" constant="200" id="t6z-ss-lQd"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Focus Area Image" translatesAutoresizingMaskIntoConstraints="NO" id="JY6-S1-pIX" userLabel="FocusAreaImage">
+                                        <rect key="frame" x="138" y="-50" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="DUw-MZ-IET"/>
+                                            <constraint firstAttribute="height" constant="100" id="hiZ-kE-WCK"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SrV-qZ-5I6" userLabel="TimerLabel">
+                                        <rect key="frame" x="188" y="0.0" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="150"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Mrc-28-MpO" secondAttribute="bottom" id="5mn-QF-Md2"/>
+                                    <constraint firstItem="Mrc-28-MpO" firstAttribute="top" secondItem="8cu-EJ-zwj" secondAttribute="top" id="7Fj-ed-4xm"/>
+                                    <constraint firstAttribute="trailing" secondItem="Mrc-28-MpO" secondAttribute="trailing" id="BXM-ch-jVh"/>
+                                    <constraint firstAttribute="trailing" secondItem="IWj-lo-5ha" secondAttribute="trailing" id="CYr-hV-FPF"/>
+                                    <constraint firstItem="IWj-lo-5ha" firstAttribute="leading" secondItem="8cu-EJ-zwj" secondAttribute="leading" id="G7M-qZ-w1l"/>
+                                    <constraint firstItem="JY6-S1-pIX" firstAttribute="centerX" secondItem="8cu-EJ-zwj" secondAttribute="centerX" id="OPk-aM-jno"/>
+                                    <constraint firstAttribute="width" secondItem="8cu-EJ-zwj" secondAttribute="height" multiplier="3:4" id="TSi-VB-vbK"/>
+                                    <constraint firstItem="SrV-qZ-5I6" firstAttribute="centerX" secondItem="8cu-EJ-zwj" secondAttribute="centerX" id="f9L-iY-zIa"/>
+                                    <constraint firstItem="Mrc-28-MpO" firstAttribute="leading" secondItem="8cu-EJ-zwj" secondAttribute="leading" id="gFy-k0-C5k"/>
+                                    <constraint firstItem="JY6-S1-pIX" firstAttribute="centerY" secondItem="8cu-EJ-zwj" secondAttribute="centerY" id="gpY-1H-ox3"/>
+                                    <constraint firstAttribute="width" secondItem="8cu-EJ-zwj" secondAttribute="height" multiplier="1:1" id="grI-1w-hHG"/>
+                                    <constraint firstAttribute="bottom" secondItem="IWj-lo-5ha" secondAttribute="bottom" id="kjH-MH-rsU"/>
+                                    <constraint firstItem="IWj-lo-5ha" firstAttribute="top" secondItem="8cu-EJ-zwj" secondAttribute="top" id="pjd-sB-Us6"/>
+                                    <constraint firstItem="zMh-Gj-ePw" firstAttribute="centerX" secondItem="8cu-EJ-zwj" secondAttribute="centerX" id="sxS-Mz-v25"/>
+                                    <constraint firstAttribute="width" secondItem="8cu-EJ-zwj" secondAttribute="height" multiplier="9:16" id="vZF-eF-2NS"/>
+                                    <constraint firstItem="SrV-qZ-5I6" firstAttribute="centerY" secondItem="8cu-EJ-zwj" secondAttribute="centerY" id="xSP-dG-2on"/>
+                                    <constraint firstItem="zMh-Gj-ePw" firstAttribute="centerY" secondItem="8cu-EJ-zwj" secondAttribute="centerY" id="zsr-nu-5cI"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="grI-1w-hHG"/>
+                                        <exclude reference="vZF-eF-2NS"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="77h-xj-14N" userLabel="Top Button Stack View">
+                                <rect key="frame" x="10" y="28" width="355" height="48"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lI5-aK-DMH" userLabel="Switching">
+                                        <rect key="frame" x="0.0" y="0.0" width="71" height="48"/>
+                                        <state key="normal" image="Switching Icon"/>
+                                        <connections>
+                                            <action selector="switchCameras:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lil-TH-dMf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UbY-qg-NbT" userLabel="Flash">
+                                        <rect key="frame" x="71" y="0.0" width="71" height="48"/>
+                                        <state key="normal" image="Flash Off Icon"/>
+                                        <connections>
+                                            <action selector="toggleFlash:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dbG-fo-YgD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="euK-jG-vCt" userLabel="Size">
+                                        <rect key="frame" x="142" y="0.0" width="71" height="48"/>
+                                        <state key="normal" image="Setting Icon"/>
+                                        <connections>
+                                            <action selector="changeSize:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yir-J8-Qgf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAv-9N-p2U" userLabel="Timer">
+                                        <rect key="frame" x="213" y="0.0" width="71" height="48"/>
+                                        <state key="normal" image="Timer 0 Icon"/>
+                                        <connections>
+                                            <action selector="toggleTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="esK-hU-Zoq"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3is-ij-47c" userLabel="Setting">
+                                        <rect key="frame" x="284" y="0.0" width="71" height="48"/>
+                                        <state key="normal" image="Setting Icon"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="center" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="h9I-SS-QbM" userLabel="Bottom Button Stack View">
+                                <rect key="frame" x="20" y="551" width="335" height="96"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvQ-kP-rAP" userLabel="Album">
+                                        <rect key="frame" x="0.0" y="12" width="111.5" height="72"/>
+                                        <state key="normal" image="Album Icon"/>
+                                        <connections>
+                                            <action selector="album:" destination="BYZ-38-t0r" eventType="touchUpInside" id="M66-nu-9Dq"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sYp-xa-Nzd">
+                                        <rect key="frame" x="111.5" y="0.0" width="112" height="96"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Capture Button Inner" translatesAutoresizingMaskIntoConstraints="NO" id="eef-Pf-4aS" userLabel="Inner Capture Image">
+                                                <rect key="frame" x="8" y="0.0" width="96" height="96"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="96" id="PdM-mg-k1d"/>
+                                                    <constraint firstAttribute="height" constant="96" id="j6f-vt-y65"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0J-0t-wpH">
+                                                <rect key="frame" x="8" y="0.0" width="96" height="96"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="96" id="6xN-Ae-Wrs"/>
+                                                    <constraint firstAttribute="height" constant="96" id="rX0-kX-phX"/>
+                                                </constraints>
+                                                <state key="normal" image="Capture Button"/>
+                                                <connections>
+                                                    <action selector="captureImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ooM-Od-WRb"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="l0J-0t-wpH" firstAttribute="centerX" secondItem="sYp-xa-Nzd" secondAttribute="centerX" id="KuI-dp-CLY"/>
+                                            <constraint firstItem="eef-Pf-4aS" firstAttribute="centerY" secondItem="sYp-xa-Nzd" secondAttribute="centerY" id="TwO-IL-VLJ"/>
+                                            <constraint firstItem="l0J-0t-wpH" firstAttribute="centerY" secondItem="sYp-xa-Nzd" secondAttribute="centerY" id="eyP-Tf-api"/>
+                                            <constraint firstItem="eef-Pf-4aS" firstAttribute="centerX" secondItem="sYp-xa-Nzd" secondAttribute="centerX" id="ezB-6Q-c5i"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9dG-TJ-vkd" userLabel="Edit">
+                                        <rect key="frame" x="223.5" y="12" width="111.5" height="72"/>
+                                        <state key="normal" image="Edit Icon"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="96" id="Xgf-xR-6Zk"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <constraints>
+                            <constraint firstItem="8cu-EJ-zwj" firstAttribute="leading" secondItem="kFa-rs-wMv" secondAttribute="leading" id="A1j-WP-2iI"/>
+                            <constraint firstItem="77h-xj-14N" firstAttribute="leading" secondItem="kFa-rs-wMv" secondAttribute="leading" constant="10" id="T2d-s3-dAW"/>
+                            <constraint firstItem="77h-xj-14N" firstAttribute="top" secondItem="kFa-rs-wMv" secondAttribute="top" constant="8" id="V7w-ZT-1nk"/>
+                            <constraint firstItem="h9I-SS-QbM" firstAttribute="trailing" secondItem="kFa-rs-wMv" secondAttribute="trailing" constant="-20" id="eDo-2s-9Il"/>
+                            <constraint firstItem="h9I-SS-QbM" firstAttribute="leading" secondItem="kFa-rs-wMv" secondAttribute="leading" constant="20" id="nR6-Uz-a43"/>
+                            <constraint firstItem="kFa-rs-wMv" firstAttribute="trailing" secondItem="77h-xj-14N" secondAttribute="trailing" constant="10" id="r4K-Mw-4m3"/>
+                            <constraint firstItem="kFa-rs-wMv" firstAttribute="bottom" secondItem="h9I-SS-QbM" secondAttribute="bottom" priority="750" constant="20" id="sTQ-Wn-HUp"/>
+                            <constraint firstItem="h9I-SS-QbM" firstAttribute="top" relation="greaterThanOrEqual" secondItem="8cu-EJ-zwj" secondAttribute="bottom" constant="8" id="tZY-6B-P83"/>
+                            <constraint firstItem="8cu-EJ-zwj" firstAttribute="trailing" secondItem="kFa-rs-wMv" secondAttribute="trailing" id="uRp-mk-sZk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kFa-rs-wMv"/>
                     </view>
+                    <connections>
+                        <outlet property="bottomButtonStackViewConstraintTop" destination="tZY-6B-P83" id="g0M-4Z-o9u"/>
+                        <outlet property="cameraPreviewView" destination="Mrc-28-MpO" id="hRY-eK-ygD"/>
+                        <outlet property="cameraSwitchingButton" destination="lI5-aK-DMH" id="A2e-gN-tjK"/>
+                        <outlet property="cameraView" destination="8cu-EJ-zwj" id="cOo-bv-viH"/>
+                        <outlet property="cameraViewConstraintAspectNomal" destination="TSi-VB-vbK" id="CwP-eW-qQa"/>
+                        <outlet property="cameraViewConstraintAspectSquare" destination="grI-1w-hHG" id="5ok-5m-fbD"/>
+                        <outlet property="cameraViewConstraintAspectWide" destination="vZF-eF-2NS" id="V8h-KP-3ey"/>
+                        <outlet property="captureButton" destination="l0J-0t-wpH" id="No6-a2-Vfr"/>
+                        <outlet property="captureEffectView" destination="IWj-lo-5ha" id="9On-HH-UJn"/>
+                        <outlet property="flashButton" destination="UbY-qg-NbT" id="aD9-IU-YBR"/>
+                        <outlet property="focusAreaDefaultImage" destination="zMh-Gj-ePw" id="NLE-nP-Ss7"/>
+                        <outlet property="focusAreaImage" destination="JY6-S1-pIX" id="NrU-mt-p1b"/>
+                        <outlet property="innerCaptureImage" destination="eef-Pf-4aS" id="9ZJ-4E-YtE"/>
+                        <outlet property="timerButton" destination="BAv-9N-p2U" id="2eq-CT-ZnQ"/>
+                        <outlet property="timerCountLable" destination="SrV-qZ-5I6" id="xGp-Pb-udc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="33.733133433283363"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Album Icon" width="72" height="72"/>
+        <image name="Capture Button" width="96" height="96"/>
+        <image name="Capture Button Inner" width="96" height="96"/>
+        <image name="Edit Icon" width="72" height="72"/>
+        <image name="Flash Off Icon" width="48" height="48"/>
+        <image name="Focus Area Default Image" width="240" height="240"/>
+        <image name="Focus Area Image" width="100" height="100"/>
+        <image name="Setting Icon" width="48" height="48"/>
+        <image name="Switching Icon" width="48" height="48"/>
+        <image name="Timer 0 Icon" width="48" height="48"/>
+    </resources>
 </document>
