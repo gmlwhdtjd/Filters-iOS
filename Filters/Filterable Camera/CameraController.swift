@@ -267,8 +267,6 @@ extension CameraController {
         self.filteredPreviewLayer?.frame = view.bounds
         
         view.layer.insertSublayer(self.filteredPreviewLayer!, at: 1)
-        
-        self.defaultFocusAnimation()
     }
     
     public func switchCameras() throws {
@@ -411,6 +409,16 @@ extension CameraController {
         
         currentCameraDevice.unlockForConfiguration()
     }
+    public func resetPointOfInterest() throws {
+        guard let captureSession = self.captureSession,
+            let currentCameraPosition = self.currentCameraPosition,
+            let _ = (currentCameraPosition == .front ? self.frontCamera : self.rearCamera),
+            captureSession.isRunning else {
+                throw CameraControllerError.captureSessionIsMissing
+        }
+        
+        resetCurrentCameraDevice()
+    }
     
     public func captureImage(completion: @escaping (UIImage?, Error?) -> Void) {
         func captureCountdown(leftTime: Int) {
@@ -444,6 +452,36 @@ extension CameraController {
         case .timedOut:
             completion(nil, CameraControllerError.captureIsRunning);
         }
+    }
+
+    public func stop() throws {
+        guard let captureSession = self.captureSession,
+            let previewLayer = self.previewLayer,
+            let filteredPreviewLayer = self.filteredPreviewLayer,
+            captureSession.isRunning else {
+                throw CameraControllerError.captureSessionIsMissing
+        }
+        captureSession.stopRunning()
+        previewLayer.removeFromSuperlayer()
+        filteredPreviewLayer.removeFromSuperlayer()
+        
+        self.frontCamera = nil
+        self.rearCamera = nil
+        
+        self.frontCameraInput = nil
+        self.rearCameraInput = nil
+        
+        self.photoOutput = nil
+        self.previewVideoOutput = nil
+        
+        self.previewLayer = nil
+        self.filteredPreviewLayer = nil
+        self.captureSession = nil
+        
+        self.timerCountLable?.layer.removeAllAnimations()
+        self.focusAreaDefaultImage?.layer.removeAllAnimations()
+        self.focusAreaImage?.layer.removeAllAnimations()
+        self.captureEffectView?.layer.removeAllAnimations()
     }
 }
 
