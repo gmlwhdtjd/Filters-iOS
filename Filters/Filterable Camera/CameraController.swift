@@ -7,11 +7,11 @@
 //
 
 import UIKit
+import CoreMotion
 import AVFoundation
 
 class CameraController: NSObject {
-    private let ciContext = CIContext()
-    
+    private let ciContext = CIContext(options: [kCIImageColorSpace: NSNull()])
     private var captureSession: AVCaptureSession?
     
     private var frontCamera: AVCaptureDevice?
@@ -22,6 +22,8 @@ class CameraController: NSObject {
     
     private var captureLock: DispatchSemaphore = DispatchSemaphore.init(value: 1)
     
+    private var convertedPointOfInterest = CGPoint(x: 0.5, y: 0.5)
+    
     private weak var preview: UIView?
     private var previewLayer: AVCaptureVideoPreviewLayer?
     private var filteredPreviewLayer: CALayer?
@@ -31,10 +33,30 @@ class CameraController: NSObject {
     
     private var photoCaptureCompletionBlock: ((UIImage?, Error?) -> Void)?
     
+    private let cmMotionManager = CMMotionManager()
+    private var currentDeviceOrientation: UIDeviceOrientation {
+        get {
+            guard self.cmMotionManager.isAccelerometerActive,
+                let accelerometerData = cmMotionManager.accelerometerData else {
+                return .unknown
+            }
+            
+            let currentAcceleration = accelerometerData.acceleration
+            
+            if abs(currentAcceleration.x) > abs(currentAcceleration.y) {
+                return currentAcceleration.x > 0 ? .landscapeRight : .landscapeLeft
+            }
+            else {
+                return currentAcceleration.y > 0 ? .portraitUpsideDown : .portrait
+            }
+        }
+    }
+    
     // For camera settings
     private var currentCameraPosition: CameraPosition?
     public var flashMode = AVCaptureDevice.FlashMode.off
     public var timerMode = TimerMode.none
+    public var aspectRatioMode = AspectRatioMode.normal
     
     // For camera animation
     public weak var timerCountLable: UILabel?
@@ -42,8 +64,42 @@ class CameraController: NSObject {
     public weak var focusAreaImage: UIImageView?
     public weak var captureEffectView: UIView?
     
-    var tmp: CGFloat = 1.00
-    var flag: Bool = false
+    let filterChain = CIFIlterChain()
+    
+    override init() {
+        filterChain.addFilter(name: "CIExposureAdjust")
+        filterChain.setValueOfLastFilter(0.50, forKey: "inputEV")
+
+        filterChain.addFilter(name: "CIHighlightShadowAdjust")
+        filterChain.setValueOfLastFilter(1.00, forKey: "inputHighlightAmount")
+        filterChain.setValueOfLastFilter(0.00, forKey: "inputShadowAmount")
+
+        filterChain.addFilter(name: "CIColorControls")
+        filterChain.setValueOfLastFilter(1.00, forKey: "inputSaturation")
+        filterChain.setValueOfLastFilter(0.00, forKey: "inputBrightness")
+        filterChain.setValueOfLastFilter(1.00, forKey: "inputContrast")
+
+        filterChain.addFilter(name: "CIUnsharpMask")
+        filterChain.setValueOfLastFilter(2.50, forKey: "inputRadius")
+        filterChain.setValueOfLastFilter(0.00, forKey: "inputIntensity")
+
+        filterChain.addFilter(name: "CIVignette")
+        filterChain.setValueOfLastFilter(1.0, forKey: "inputRadius")
+        filterChain.setValueOfLastFilter(0.0, forKey: "inputIntensity")
+
+        filterChain.addFilter(ColorOverlay())
+        filterChain.setValueOfLastFilter(CIColor(red: 0.8, green: 0.5, blue: 0.0, alpha: 0.1), forKey: "inputColor")
+
+        filterChain.addFilter(Grain())
+        filterChain.setValueOfLastFilter(0.5, forKey: "inputIntensity")
+        
+        filterChain.addFilter(ChromaticAberration())
+        filterChain.setValueOfLastFilter(0.0, forKey: "inputIntensity")
+        
+        filterChain.addFilter(SelectiveBlur())
+        filterChain.setValueOfLastFilter(0.0, forKey: "inputRadius")
+        filterChain.setValueOfLastFilter(1.0, forKey: "inputIntensity")
+    }
 }
 
 extension CameraController  {
@@ -57,11 +113,11 @@ extension CameraController  {
         do {
             try currentCameraDevice.lockForConfiguration()
             
-            let defualtPoint = CGPoint.init(x: 0.5, y: 0.5)
+            self.convertedPointOfInterest = CGPoint(x: 0.5, y: 0.5)
             
             // Focus
             if currentCameraDevice.isFocusPointOfInterestSupported {
-                currentCameraDevice.focusPointOfInterest = defualtPoint
+                currentCameraDevice.focusPointOfInterest = self.convertedPointOfInterest
             }
             if currentCameraDevice.isFocusModeSupported(.continuousAutoFocus) {
                 currentCameraDevice.focusMode = .continuousAutoFocus
@@ -69,7 +125,7 @@ extension CameraController  {
             
             // Exposure
             if currentCameraDevice.isExposurePointOfInterestSupported {
-                currentCameraDevice.exposurePointOfInterest = defualtPoint
+                currentCameraDevice.exposurePointOfInterest = self.convertedPointOfInterest
             }
             if currentCameraDevice.isExposureModeSupported(.continuousAutoExposure) {
                 currentCameraDevice.exposureMode = .continuousAutoExposure
@@ -186,6 +242,8 @@ extension CameraController {
             }
             
             captureSession.startRunning()
+            cmMotionManager.accelerometerUpdateInterval = 0.2
+            cmMotionManager.startAccelerometerUpdates()
         }
         
         func dispatchCompletionHandler(_ errer: Error?) {
@@ -261,7 +319,6 @@ extension CameraController {
         view.layer.insertSublayer(self.previewLayer!, at: 0)
    
         self.filteredPreviewLayer = CALayer()
-//        self.filteredPreviewLayer?.opacity = 0.5
         self.filteredPreviewLayer?.masksToBounds = true
         self.filteredPreviewLayer?.contentsGravity = "resizeAspectFill"
         self.filteredPreviewLayer?.frame = view.bounds
@@ -320,32 +377,27 @@ extension CameraController {
             }
         }
         
-        //TODO: Do I need to set of previewVideoOutput?
+        var videoMirrored = false
+        
         switch currentCameraPosition {
         case .front:
             try switchToRearCamera()
-
-            // For filterd preview orientation
-            if let previewVideoOutput = self.previewVideoOutput,
-                previewVideoOutput.connections.count > 0 {
-                let connection = previewVideoOutput.connections[0]
-                connection.videoOrientation = .portrait
-                connection.isVideoMirrored = false
-            }
         case .rear:
             try switchToFrontCamera()
-            
-            // For filterd preview orientation
-            if let previewVideoOutput = self.previewVideoOutput,
-                previewVideoOutput.connections.count > 0 {
-                let connection = previewVideoOutput.connections[0]
-                connection.videoOrientation = .portrait
-                connection.isVideoMirrored = true
-            }
+            videoMirrored = true
         }
         
-        resetCurrentCameraDevice()
+        // For filterd preview orientation
+        if let previewVideoOutput = self.previewVideoOutput,
+            previewVideoOutput.connections.count > 0 {
+            let connection = previewVideoOutput.connections[0]
+            connection.videoOrientation = .portrait
+            connection.isVideoMirrored = videoMirrored
+        }
+        
         captureSession.commitConfiguration()
+        
+        resetCurrentCameraDevice()
     }
     public func setPointOfInterest(point: CGPoint) throws {
         guard let captureSession = self.captureSession,
@@ -402,8 +454,12 @@ extension CameraController {
                                                    selector: #selector(resetCurrentCameraDevice),
                                                    name: NSNotification.Name.AVCaptureDeviceSubjectAreaDidChange,
                                                    object: nil)
+            
+            self.convertedPointOfInterest = convertedPoint
+            
             self.resetFocusAnimation()
             self.startFocusAnimation(point: point)
+            
             checkAdjusting()
         }
         
@@ -482,6 +538,173 @@ extension CameraController {
         self.focusAreaDefaultImage?.layer.removeAllAnimations()
         self.focusAreaImage?.layer.removeAllAnimations()
         self.captureEffectView?.layer.removeAllAnimations()
+        
+        self.cmMotionManager.stopAccelerometerUpdates()
+    }
+}
+
+// MARK: - AVCapturePhotoCaptureDelegate
+extension CameraController: AVCapturePhotoCaptureDelegate {
+    public func photoOutput(_ output: AVCapturePhotoOutput,
+                            didFinishProcessingPhoto photo: AVCapturePhoto,
+                            error: Error?) {
+        DispatchQueue(label: "Capture").async {
+            if let error = error {
+                self.photoCaptureCompletionBlock?(nil, error)
+            }
+            else if let data = photo.fileDataRepresentation(),
+                let image = UIImage(data: data),
+                let ciImage = CIImage(data: data) {
+
+                func calculateCGRect(withAspectRatio aspectRatio: CGFloat, imageSize: CGSize) -> CGRect {
+                    let width = imageSize.width
+                    let height = imageSize.height
+
+                    // FIXME: 들어오는 이미지가 시계방향으로 90도 돌아가 있어 가로 세로가 바뀜 -> 처리해줘야되나?
+                    if width <= height * aspectRatio {
+                        return CGRect(x: (height - width / aspectRatio) / 2,
+                                      y: 0.0,
+                                      width: width / aspectRatio,
+                                      height: width)
+                    }
+                    else {
+                        return CGRect(x: 0.0,
+                                      y: (width - height * aspectRatio) / 2,
+                                      width: height,
+                                      height: height * aspectRatio)
+                    }
+                }
+                func calculateFixedImageOrientation(from imageOrientation: UIImageOrientation) -> UIImageOrientation {
+                    guard let currentCameraPosition = self.currentCameraPosition else {
+                        return imageOrientation
+                    }
+                    
+                    var fixedImageOrientation = imageOrientation
+                    
+                    if currentCameraPosition == .front {
+                        fixedImageOrientation = fixedImageOrientation.mirrored()
+                        
+                        // FIXME: 이 부분 조건을 좀더 깔끔하게 만들 수 있을까?
+                        switch imageOrientation {
+                        case .up, .down, .upMirrored, .downMirrored:
+                            if self.currentDeviceOrientation == .landscapeLeft || self.currentDeviceOrientation == .landscapeRight {
+                                fixedImageOrientation = fixedImageOrientation.rotate(degree: 180)
+                            }
+                        case .left, .right, .leftMirrored, .rightMirrored:
+                            if self.currentDeviceOrientation == .portrait || self.currentDeviceOrientation == .portraitUpsideDown {
+                                fixedImageOrientation = fixedImageOrientation.rotate(degree: 180)
+                            }
+                        }
+                    }
+                    
+                    switch self.currentDeviceOrientation {
+                    case .portrait:
+                        fixedImageOrientation = fixedImageOrientation.rotate(degree: 0)
+                    case .portraitUpsideDown:
+                        fixedImageOrientation = fixedImageOrientation.rotate(degree: 180)
+                    case .landscapeLeft:
+                        fixedImageOrientation = fixedImageOrientation.rotate(degree: -90)
+                    case .landscapeRight:
+                        fixedImageOrientation = fixedImageOrientation.rotate(degree: 90)
+                    default:
+                        break
+                    }
+                    
+                    return fixedImageOrientation
+                }
+                
+                // blur position
+                let filterPoint: CGPoint!
+                filterPoint = CGPoint(x: self.convertedPointOfInterest.x, y: 1 - self.convertedPointOfInterest.y)
+                
+                self.filterChain.setValueOfLastFilter(filterPoint, forKey: "inputPosition")
+
+                // Filter
+                self.filterChain.inputImage = ciImage
+                let filteredCIImage = self.filterChain.outputImage!
+
+                // Crop
+                let imageRectangle = calculateCGRect(withAspectRatio: self.aspectRatioMode.rawValue, imageSize: image.size)
+
+                // make bitmap
+                let filteredCGImage = self.ciContext.createCGImage(filteredCIImage, from: imageRectangle)
+
+                // Orientation
+                let fixedImageOrientation = calculateFixedImageOrientation(from: image.imageOrientation)
+
+                // Make UIIamge
+                let filteredUIImage = UIImage(cgImage: filteredCGImage!, scale: image.scale, orientation: fixedImageOrientation)
+
+                self.photoCaptureCompletionBlock?(filteredUIImage, nil)
+            }
+            else {
+                self.photoCaptureCompletionBlock?(nil, CameraControllerError.unknown)
+            }
+        }
+        self.captureLock.signal()
+    }
+}
+
+// MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
+extension CameraController: AVCaptureVideoDataOutputSampleBufferDelegate {
+    public func captureOutput(_ output: AVCaptureOutput,
+                              didOutput sampleBuffer: CMSampleBuffer,
+                              from connection: AVCaptureConnection) {
+        let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
+        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+        
+        // blur position
+        let filterPoint: CGPoint!
+        if currentCameraPosition == .front {
+            filterPoint = CGPoint(x: convertedPointOfInterest.y, y: 1 - convertedPointOfInterest.x)
+        }
+        else {
+           filterPoint = CGPoint(x: 1 - convertedPointOfInterest.y, y: 1 - convertedPointOfInterest.x)
+        }
+        
+        self.filterChain.setValueOfLastFilter(filterPoint, forKey: "inputPosition")
+    
+        // Filter
+        filterChain.inputImage = ciImage
+        
+        let filteredCIImage = filterChain.outputImage!
+        let filteredCGImage = ciContext.createCGImage(filteredCIImage, from: filteredCIImage.extent)
+        
+        DispatchQueue.main.async {
+            self.filteredPreviewLayer?.contents = filteredCGImage
+        }
+    }
+}
+
+// MARK: - Enums
+extension CameraController {
+    public enum CameraControllerError: Swift.Error {
+        case permissionDenied
+        case captureSessionAlreadyRunning
+        case captureSessionIsMissing
+        case inputsAreInvalid
+        case invalidOperation
+        case noCamerasAvailable
+        case captureIsRunning
+        case unknown
+    }
+    
+    public enum CameraPosition {
+        case front
+        case rear
+    }
+    
+    public enum TimerMode: Int {
+        case none = 0
+        case threeSecond = 3
+        case fiveSecond = 5
+        case tenSecond = 10
+    }
+    
+    public enum AspectRatioMode: CGFloat {
+        case normal = 0.7500    // 3:4
+        case wide = 0.5625      // 9:16
+        case square = 1.0000    // 1:1
     }
 }
 
@@ -544,88 +767,6 @@ extension CameraController {
                     timerCountLable.alpha = 0.0
                 }
             }
-        }
-    }
-}
-
-// MARK: - Enums
-extension CameraController {
-    public enum CameraControllerError: Swift.Error {
-        case permissionDenied
-        case captureSessionAlreadyRunning
-        case captureSessionIsMissing
-        case inputsAreInvalid
-        case invalidOperation
-        case noCamerasAvailable
-        case captureIsRunning
-        case unknown
-    }
-    
-    public enum CameraPosition {
-        case front
-        case rear
-    }
-    
-    public enum TimerMode: Int {
-        case none = 0
-        case threeSecond = 3
-        case fiveSecond = 5
-        case tenSecond = 10
-    }
-}
-
-//MARK: - AVCapturePhotoCaptureDelegate
-extension CameraController: AVCapturePhotoCaptureDelegate {
-    public func photoOutput(_ output: AVCapturePhotoOutput,
-                            didFinishProcessingPhoto photo: AVCapturePhoto,
-                            error: Error?) {
-        if let error = error {
-            self.photoCaptureCompletionBlock?(nil, error)
-        }
-        else if let data = photo.fileDataRepresentation(),
-            let image = UIImage(data: data),
-            let currentCameraPosition = self.currentCameraPosition{
-            
-            let ciImage = CIImage(data: data)!
-            
-            let masterFilter = MasterFilter()
-            masterFilter.inputImage = ciImage
-            
-            let filteredCIImage = masterFilter.outputImage!
-            let filteredCGImage = ciContext.createCGImage(filteredCIImage, from: filteredCIImage.extent)
-            
-            let filteredUIImage: UIImage!
-            switch currentCameraPosition {
-            case .front:
-                filteredUIImage = UIImage(cgImage: filteredCGImage!, scale: image.scale, orientation: .leftMirrored)
-            case .rear:
-                filteredUIImage = UIImage(cgImage: filteredCGImage!, scale: image.scale, orientation: image.imageOrientation)
-            }
-            self.photoCaptureCompletionBlock?(filteredUIImage, nil)
-        }
-        else {
-            self.photoCaptureCompletionBlock?(nil, CameraControllerError.unknown)
-        }
-        self.captureLock.signal()
-    }
-}
-
-//MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
-extension CameraController: AVCaptureVideoDataOutputSampleBufferDelegate {
-    public func captureOutput(_ output: AVCaptureOutput,
-                              didOutput sampleBuffer: CMSampleBuffer,
-                              from connection: AVCaptureConnection) {
-        let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
-        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-        
-        let masterFilter = MasterFilter()
-        masterFilter.inputImage = ciImage
-        
-        let filteredCIImage = masterFilter.outputImage!
-        let filteredCGImage = ciContext.createCGImage(filteredCIImage, from: filteredCIImage.extent)
-
-        DispatchQueue.main.async {
-            self.filteredPreviewLayer?.contents = filteredCGImage
         }
     }
 }

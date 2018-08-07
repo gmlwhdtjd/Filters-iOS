@@ -7,27 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8638DF6D20FF16340042E369 /* MasterFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8638DF6C20FF16340042E369 /* MasterFilter.swift */; };
+		865356F921186B890015A622 /* ChromaticAberrationKernel.metal in Sources */ = {isa = PBXBuildFile; fileRef = 865356F821186B890015A622 /* ChromaticAberrationKernel.metal */; };
+		865356FB21186BB80015A622 /* ChromaticAberration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865356FA21186BB80015A622 /* ChromaticAberration.swift */; };
 		8674025920E7547800D3900F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8674025820E7547800D3900F /* Assets.xcassets */; };
+		867549B8211072D700605F1F /* Grain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867549B7211072D700605F1F /* Grain.swift */; };
+		86938249210EF9C7008FEE25 /* CIFilterChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86938248210EF9C7008FEE25 /* CIFilterChain.swift */; };
+		8693824B210F1C16008FEE25 /* ColorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8693824A210F1C16008FEE25 /* ColorOverlay.swift */; };
 		869D0AC520F49D60004F1CAF /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869D0AC420F49D60004F1CAF /* CameraController.swift */; };
-		86AD73392107987E003F4F90 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AD73382107987E003F4F90 /* Device.swift */; };
+		86AD73392107987E003F4F90 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AD73382107987E003F4F90 /* Extension.swift */; };
 		86F9DC9220DA5714003C676C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F9DC9120DA5714003C676C /* AppDelegate.swift */; };
 		86F9DC9420DA5714003C676C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F9DC9320DA5714003C676C /* ViewController.swift */; };
 		86F9DC9720DA5714003C676C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86F9DC9520DA5714003C676C /* Main.storyboard */; };
 		86F9DC9C20DA5716003C676C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86F9DC9A20DA5716003C676C /* LaunchScreen.storyboard */; };
+		86FF83F4211618E600693F4A /* SelectiveBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FF83F3211618E600693F4A /* SelectiveBlur.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8638DF6C20FF16340042E369 /* MasterFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterFilter.swift; sourceTree = "<group>"; };
+		865356F821186B890015A622 /* ChromaticAberrationKernel.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ChromaticAberrationKernel.metal; sourceTree = "<group>"; };
+		865356FA21186BB80015A622 /* ChromaticAberration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaticAberration.swift; sourceTree = "<group>"; };
 		8674025820E7547800D3900F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		867549B7211072D700605F1F /* Grain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grain.swift; sourceTree = "<group>"; };
+		86938248210EF9C7008FEE25 /* CIFilterChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIFilterChain.swift; sourceTree = "<group>"; };
+		8693824A210F1C16008FEE25 /* ColorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOverlay.swift; sourceTree = "<group>"; };
 		869D0AC420F49D60004F1CAF /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
-		86AD73382107987E003F4F90 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		86AD73382107987E003F4F90 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		86F9DC8E20DA5714003C676C /* Filters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Filters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86F9DC9120DA5714003C676C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		86F9DC9320DA5714003C676C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		86F9DC9620DA5714003C676C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		86F9DC9B20DA5716003C676C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86F9DC9D20DA5716003C676C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		86FF83F3211618E600693F4A /* SelectiveBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveBlur.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,19 +51,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8638DF6E20FF1E7C0042E369 /* Filters */ = {
+		8638DF6E20FF1E7C0042E369 /* Custom Filters */ = {
 			isa = PBXGroup;
 			children = (
-				8638DF6C20FF16340042E369 /* MasterFilter.swift */,
+				8693824A210F1C16008FEE25 /* ColorOverlay.swift */,
+				867549B7211072D700605F1F /* Grain.swift */,
+				86FF83F3211618E600693F4A /* SelectiveBlur.swift */,
+				865356FA21186BB80015A622 /* ChromaticAberration.swift */,
+				865356F821186B890015A622 /* ChromaticAberrationKernel.metal */,
 			);
-			path = Filters;
+			path = "Custom Filters";
 			sourceTree = "<group>";
 		};
 		869D0AC320F49D44004F1CAF /* Filterable Camera */ = {
 			isa = PBXGroup;
 			children = (
 				869D0AC420F49D60004F1CAF /* CameraController.swift */,
-				8638DF6E20FF1E7C0042E369 /* Filters */,
+				86938248210EF9C7008FEE25 /* CIFilterChain.swift */,
+				8638DF6E20FF1E7C0042E369 /* Custom Filters */,
 			);
 			path = "Filterable Camera";
 			sourceTree = "<group>";
@@ -79,7 +94,7 @@
 			children = (
 				86F9DC9120DA5714003C676C /* AppDelegate.swift */,
 				86F9DC9320DA5714003C676C /* ViewController.swift */,
-				86AD73382107987E003F4F90 /* Device.swift */,
+				86AD73382107987E003F4F90 /* Extension.swift */,
 				86F9DC9520DA5714003C676C /* Main.storyboard */,
 				8674025820E7547800D3900F /* Assets.xcassets */,
 				869D0AC320F49D44004F1CAF /* Filterable Camera */,
@@ -160,11 +175,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86AD73392107987E003F4F90 /* Device.swift in Sources */,
+				867549B8211072D700605F1F /* Grain.swift in Sources */,
+				865356FB21186BB80015A622 /* ChromaticAberration.swift in Sources */,
+				865356F921186B890015A622 /* ChromaticAberrationKernel.metal in Sources */,
+				86AD73392107987E003F4F90 /* Extension.swift in Sources */,
+				86938249210EF9C7008FEE25 /* CIFilterChain.swift in Sources */,
 				869D0AC520F49D60004F1CAF /* CameraController.swift in Sources */,
 				86F9DC9420DA5714003C676C /* ViewController.swift in Sources */,
 				86F9DC9220DA5714003C676C /* AppDelegate.swift in Sources */,
-				8638DF6D20FF16340042E369 /* MasterFilter.swift in Sources */,
+				8693824B210F1C16008FEE25 /* ColorOverlay.swift in Sources */,
+				86FF83F4211618E600693F4A /* SelectiveBlur.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +262,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTLLINKER_FLAGS = "-cikernel";
+				MTL_COMPILER_FLAGS = "-fcikernel";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -296,6 +318,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTLLINKER_FLAGS = "-cikernel";
+				MTL_COMPILER_FLAGS = "-fcikernel";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;

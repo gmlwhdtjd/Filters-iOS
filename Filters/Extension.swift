@@ -17,7 +17,6 @@ import UIKit
 // Modified by Hui Jong Lee
 //
 public extension UIDevice {
-    
     static let modelName: String = {
         var systemInfo = utsname()
         uname(&systemInfo)
@@ -80,5 +79,58 @@ public extension UIDevice {
         
         return mapToDevice(identifier: identifier)
     }()
+}
+
+// MARK: - Extension for UIImageOrientation
+extension UIImageOrientation {
+    func rotate(degree: Int) -> UIImageOrientation {
+        switch degree {
+        case 90, -270:
+            switch self {
+            case .up:               return .right
+            case .down:             return .left
+            case .left:             return .up
+            case .right:            return .down
+            case .upMirrored:       return .leftMirrored
+            case .downMirrored:     return .rightMirrored
+            case .leftMirrored:     return .downMirrored
+            case .rightMirrored:    return .upMirrored
+            }
+        case 180, -180:
+            return self.rotate(degree: 90).rotate(degree: 90)
+        case 270, -90:
+            return self.rotate(degree: 180).rotate(degree: 90)
+        default:
+            return self
+        }
+    }
     
+    func mirrored() -> UIImageOrientation {
+        switch self {
+        case .up:               return .upMirrored
+        case .down:             return .downMirrored
+        case .left:             return .leftMirrored
+        case .right:            return .rightMirrored
+        case .upMirrored:       return .up
+        case .downMirrored:     return .down
+        case .leftMirrored:     return .left
+        case .rightMirrored:    return .right
+        }
+    }
+    
+    // TODO: 꼭 필요한 부분은 아님
+    var stringValue: String {
+        get {
+            switch self {
+            case .up:               return "up"
+            case .down:             return "down"
+            case .left:             return "left"
+            case .right:            return "right"
+            case .upMirrored:       return "upMirrored"
+            case .downMirrored:     return "downnMirrored"
+            case .leftMirrored:     return "leftMirrored"
+            case .rightMirrored:    return "rightMirrored"
+            }
+        }
+    }
 }

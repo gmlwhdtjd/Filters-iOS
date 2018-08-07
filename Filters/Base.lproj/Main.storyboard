@@ -23,6 +23,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mrc-28-MpO" userLabel="CameraPreview">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </view>
                                     <view alpha="0.0" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IWj-lo-5ha" userLabel="CaptureEffectView">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
@@ -50,7 +51,6 @@
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Mrc-28-MpO" secondAttribute="bottom" id="5mn-QF-Md2"/>
                                     <constraint firstItem="Mrc-28-MpO" firstAttribute="top" secondItem="8cu-EJ-zwj" secondAttribute="top" id="7Fj-ed-4xm"/>
@@ -91,21 +91,21 @@
                                         <rect key="frame" x="71" y="0.0" width="71" height="48"/>
                                         <state key="normal" image="Flash Off Icon"/>
                                         <connections>
-                                            <action selector="toggleFlash:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dbG-fo-YgD"/>
+                                            <action selector="changeFlashMode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MbE-Bd-Z7M"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="euK-jG-vCt" userLabel="Size">
                                         <rect key="frame" x="142" y="0.0" width="71" height="48"/>
                                         <state key="normal" image="Setting Icon"/>
                                         <connections>
-                                            <action selector="changeSize:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yir-J8-Qgf"/>
+                                            <action selector="changeAspectRatioMode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="n2d-JW-rUy"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAv-9N-p2U" userLabel="Timer">
                                         <rect key="frame" x="213" y="0.0" width="71" height="48"/>
                                         <state key="normal" image="Timer 0 Icon"/>
                                         <connections>
-                                            <action selector="toggleTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="esK-hU-Zoq"/>
+                                            <action selector="changeTimerMode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nSK-R6-Yly"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3is-ij-47c" userLabel="Setting">
@@ -124,33 +124,28 @@
                                             <action selector="album:" destination="BYZ-38-t0r" eventType="touchUpInside" id="M66-nu-9Dq"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sYp-xa-Nzd">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2JH-Fz-2L4">
                                         <rect key="frame" x="111.5" y="0.0" width="112" height="96"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Capture Button Inner" translatesAutoresizingMaskIntoConstraints="NO" id="eef-Pf-4aS" userLabel="Inner Capture Image">
-                                                <rect key="frame" x="8" y="0.0" width="96" height="96"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="96" id="PdM-mg-k1d"/>
-                                                    <constraint firstAttribute="height" constant="96" id="j6f-vt-y65"/>
-                                                </constraints>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Capture Button Inner" translatesAutoresizingMaskIntoConstraints="NO" id="poq-4f-ud6">
+                                                <rect key="frame" x="0.0" y="0.0" width="112" height="96"/>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0J-0t-wpH">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y87-SB-GGP">
                                                 <rect key="frame" x="8" y="0.0" width="96" height="96"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="96" id="6xN-Ae-Wrs"/>
-                                                    <constraint firstAttribute="height" constant="96" id="rX0-kX-phX"/>
-                                                </constraints>
                                                 <state key="normal" image="Capture Button"/>
                                                 <connections>
-                                                    <action selector="captureImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ooM-Od-WRb"/>
+                                                    <action selector="captureImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="umW-yH-fwa"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="l0J-0t-wpH" firstAttribute="centerX" secondItem="sYp-xa-Nzd" secondAttribute="centerX" id="KuI-dp-CLY"/>
-                                            <constraint firstItem="eef-Pf-4aS" firstAttribute="centerY" secondItem="sYp-xa-Nzd" secondAttribute="centerY" id="TwO-IL-VLJ"/>
-                                            <constraint firstItem="l0J-0t-wpH" firstAttribute="centerY" secondItem="sYp-xa-Nzd" secondAttribute="centerY" id="eyP-Tf-api"/>
-                                            <constraint firstItem="eef-Pf-4aS" firstAttribute="centerX" secondItem="sYp-xa-Nzd" secondAttribute="centerX" id="ezB-6Q-c5i"/>
+                                            <constraint firstAttribute="trailing" secondItem="poq-4f-ud6" secondAttribute="trailing" id="4GZ-sM-bix"/>
+                                            <constraint firstItem="Y87-SB-GGP" firstAttribute="centerX" secondItem="2JH-Fz-2L4" secondAttribute="centerX" id="Kn9-yh-XZ7"/>
+                                            <constraint firstItem="Y87-SB-GGP" firstAttribute="centerY" secondItem="2JH-Fz-2L4" secondAttribute="centerY" id="KvR-HL-kZo"/>
+                                            <constraint firstAttribute="height" constant="96" id="jMF-fb-Juw"/>
+                                            <constraint firstItem="poq-4f-ud6" firstAttribute="top" secondItem="2JH-Fz-2L4" secondAttribute="top" id="ptV-Zi-KCf"/>
+                                            <constraint firstAttribute="bottom" secondItem="poq-4f-ud6" secondAttribute="bottom" id="qIM-dU-OdW"/>
+                                            <constraint firstItem="poq-4f-ud6" firstAttribute="leading" secondItem="2JH-Fz-2L4" secondAttribute="leading" id="sgZ-Ku-TQ2"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9dG-TJ-vkd" userLabel="Edit">
@@ -158,9 +153,6 @@
                                         <state key="normal" image="Edit Icon"/>
                                     </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="96" id="Xgf-xR-6Zk"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -185,12 +177,12 @@
                         <outlet property="cameraViewConstraintAspectNomal" destination="TSi-VB-vbK" id="CwP-eW-qQa"/>
                         <outlet property="cameraViewConstraintAspectSquare" destination="grI-1w-hHG" id="5ok-5m-fbD"/>
                         <outlet property="cameraViewConstraintAspectWide" destination="vZF-eF-2NS" id="V8h-KP-3ey"/>
-                        <outlet property="captureButton" destination="l0J-0t-wpH" id="No6-a2-Vfr"/>
+                        <outlet property="captureButton" destination="Y87-SB-GGP" id="VX0-TC-Rz2"/>
                         <outlet property="captureEffectView" destination="IWj-lo-5ha" id="9On-HH-UJn"/>
                         <outlet property="flashButton" destination="UbY-qg-NbT" id="aD9-IU-YBR"/>
                         <outlet property="focusAreaDefaultImage" destination="zMh-Gj-ePw" id="NLE-nP-Ss7"/>
                         <outlet property="focusAreaImage" destination="JY6-S1-pIX" id="NrU-mt-p1b"/>
-                        <outlet property="innerCaptureImage" destination="eef-Pf-4aS" id="9ZJ-4E-YtE"/>
+                        <outlet property="innerCaptureImage" destination="poq-4f-ud6" id="AqG-ZD-8VF"/>
                         <outlet property="timerButton" destination="BAv-9N-p2U" id="2eq-CT-ZnQ"/>
                         <outlet property="timerCountLable" destination="SrV-qZ-5I6" id="xGp-Pb-udc"/>
                     </connections>

@@ -39,22 +39,15 @@ class ViewController: UIViewController {
     
     var cameraViewConstraintCenterDefualt: NSLayoutConstraint!
     var cameraViewConstraintCenterWide: NSLayoutConstraint!
-
-    // tmp value
-    var flag: Int = 0
 }
 
 //MARK: - @IBAction & @objc
 extension ViewController {
     @IBAction func switchCameras(_ sender: UIButton) {
-        do {
-            try cameraController.switchCameras()
-        }
-        catch {
-            print(error)
-        }
+        try? cameraController.switchCameras()
     }
-    @IBAction func toggleFlash(_ sender: UIButton) {
+    
+    @IBAction func changeFlashMode(_ sender: UIButton) {
         switch cameraController.flashMode {
         case .on:
             cameraController.flashMode = .off
@@ -67,7 +60,41 @@ extension ViewController {
             flashButton.setImage(#imageLiteral(resourceName: "Flash On Icon"), for: .normal)
         }
     }
-    @IBAction func toggleTimer(_ sender: UIButton) {
+    
+    @IBAction func changeAspectRatioMode(_ sender: UIButton) {
+        let animateDuration = 0.185
+        
+        switch cameraController.aspectRatioMode {
+        case .normal: // Nomal to Square
+            cameraController.aspectRatioMode = .square
+            
+            self.cameraView.removeConstraint(self.cameraViewConstraintAspectNomal)
+            self.cameraView.addConstraint(self.cameraViewConstraintAspectSquare)
+        case .square: // Square to Wide
+            cameraController.aspectRatioMode = .wide
+            
+            self.cameraView.removeConstraint(self.cameraViewConstraintAspectSquare)
+            self.cameraView.addConstraint(self.cameraViewConstraintAspectWide)
+            
+            self.view.addConstraint(self.cameraViewConstraintCenterWide)
+        case .wide: //Wide to Nomal
+            cameraController.aspectRatioMode = .normal
+            
+            self.cameraView.removeConstraint(self.cameraViewConstraintAspectWide)
+            self.cameraView.addConstraint(self.cameraViewConstraintAspectNomal)
+            
+            self.view.removeConstraint(self.cameraViewConstraintCenterWide)
+        }
+        
+        UIView.animate(withDuration: animateDuration, delay: 0.0, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: {
+            if $0 { try? self.cameraController.resetPointOfInterest() }
+        })
+        try? self.cameraController.displayPreview(on: self.cameraPreviewView)
+    }
+    
+    @IBAction func changeTimerMode(_ sender: UIButton) {
         switch cameraController.timerMode {
         case .none:
             cameraController.timerMode = .threeSecond
@@ -82,39 +109,6 @@ extension ViewController {
             cameraController.timerMode = .none
             timerButton.setImage(#imageLiteral(resourceName: "Timer 0 Icon"), for: .normal)
         }
-    }
-    
-    @IBAction func changeSize(_ sender: UIButton) {
-        //TODO: 레이아웃 변경을 위한 임시 코드임
-        switch flag {
-        case 0: // Nomal to Square
-            self.cameraView.removeConstraint(self.cameraViewConstraintAspectNomal)
-            self.cameraView.addConstraint(self.cameraViewConstraintAspectSquare)
-            
-            flag = 1
-        case 1: // Square to Wide
-            self.cameraView.removeConstraint(self.cameraViewConstraintAspectSquare)
-            self.cameraView.addConstraint(self.cameraViewConstraintAspectWide)
-            
-            self.view.addConstraint(self.cameraViewConstraintCenterWide)
-        
-            flag = 2
-        case 2: //Wide to Nomal
-            self.cameraView.removeConstraint(self.cameraViewConstraintAspectWide)
-            self.cameraView.addConstraint(self.cameraViewConstraintAspectNomal)
-            
-            self.view.removeConstraint(self.cameraViewConstraintCenterWide)
-    
-            flag = 0
-        default:
-            return
-        }
-        
-        UIView.animate(withDuration: 0.185, delay: 0.0, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-        try? self.cameraController.displayPreview(on: self.cameraPreviewView)
-        try? self.cameraController.resetPointOfInterest()
     }
     
     @objc func capturePreviewViewTaped(sender : UITapGestureRecognizer) {
@@ -153,8 +147,9 @@ extension ViewController {
         cameraController.prepare {(error) in
             if let error = error {
                 print(error)
+                return
             }
-            
+            self.cameraPreviewView.backgroundColor = nil
             try? self.cameraController.displayPreview(on: self.cameraPreviewView)
             try? self.cameraController.resetPointOfInterest()
         }
@@ -162,6 +157,7 @@ extension ViewController {
     
     @objc func stopCameraController() {
         try? cameraController.stop()
+        self.cameraPreviewView.backgroundColor = .black
     }
 }
 
@@ -232,7 +228,7 @@ extension ViewController {
         self.prepareCameraController()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.stopCameraController()
     }
@@ -242,4 +238,3 @@ extension ViewController {
         // Dispose of any resources that can be recreated.
     }
 }
-
