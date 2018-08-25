@@ -64,42 +64,7 @@ class CameraController: NSObject {
     public weak var focusAreaImage: UIImageView?
     public weak var captureEffectView: UIView?
     
-    let filterChain = CIFIlterChain()
-    
-    override init() {
-        filterChain.addFilter(name: "CIExposureAdjust")
-        filterChain.setValueOfLastFilter(0.50, forKey: "inputEV")
-
-        filterChain.addFilter(name: "CIHighlightShadowAdjust")
-        filterChain.setValueOfLastFilter(1.00, forKey: "inputHighlightAmount")
-        filterChain.setValueOfLastFilter(0.00, forKey: "inputShadowAmount")
-
-        filterChain.addFilter(name: "CIColorControls")
-        filterChain.setValueOfLastFilter(1.00, forKey: "inputSaturation")
-        filterChain.setValueOfLastFilter(0.00, forKey: "inputBrightness")
-        filterChain.setValueOfLastFilter(1.00, forKey: "inputContrast")
-
-        filterChain.addFilter(name: "CIUnsharpMask")
-        filterChain.setValueOfLastFilter(2.50, forKey: "inputRadius")
-        filterChain.setValueOfLastFilter(0.00, forKey: "inputIntensity")
-
-        filterChain.addFilter(name: "CIVignette")
-        filterChain.setValueOfLastFilter(1.0, forKey: "inputRadius")
-        filterChain.setValueOfLastFilter(0.0, forKey: "inputIntensity")
-
-        filterChain.addFilter(ColorOverlay())
-        filterChain.setValueOfLastFilter(CIColor(red: 0.8, green: 0.5, blue: 0.0, alpha: 0.1), forKey: "inputColor")
-
-        filterChain.addFilter(Grain())
-        filterChain.setValueOfLastFilter(0.5, forKey: "inputIntensity")
-        
-        filterChain.addFilter(ChromaticAberration())
-        filterChain.setValueOfLastFilter(0.0, forKey: "inputIntensity")
-        
-        filterChain.addFilter(SelectiveBlur())
-        filterChain.setValueOfLastFilter(0.0, forKey: "inputRadius")
-        filterChain.setValueOfLastFilter(1.0, forKey: "inputIntensity")
-    }
+    let filterController = FilterController.shared
 }
 
 extension CameraController  {
@@ -616,12 +581,12 @@ extension CameraController: AVCapturePhotoCaptureDelegate {
                 // blur position
                 let filterPoint: CGPoint!
                 filterPoint = CGPoint(x: self.convertedPointOfInterest.x, y: 1 - self.convertedPointOfInterest.y)
-                
-                self.filterChain.setValueOfLastFilter(filterPoint, forKey: "inputPosition")
 
                 // Filter
-                self.filterChain.inputImage = ciImage
-                let filteredCIImage = self.filterChain.outputImage!
+                let filterChain = self.filterController.currentFilterChain.copy() as! CIFilter
+//                filterChain.setValueOfLastFilter(filterPoint, forKey: "inputPosition")
+                filterChain.setValue(ciImage, forKey: "inputImage")
+                let filteredCIImage = filterChain.outputImage!
 
                 // Crop
                 let imageRectangle = calculateCGRect(withAspectRatio: self.aspectRatioMode.rawValue, imageSize: image.size)
@@ -652,7 +617,7 @@ extension CameraController: AVCaptureVideoDataOutputSampleBufferDelegate {
                               from connection: AVCaptureConnection) {
         let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
         let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-        
+
         // blur position
         let filterPoint: CGPoint!
         if currentCameraPosition == .front {
@@ -661,15 +626,15 @@ extension CameraController: AVCaptureVideoDataOutputSampleBufferDelegate {
         else {
            filterPoint = CGPoint(x: 1 - convertedPointOfInterest.y, y: 1 - convertedPointOfInterest.x)
         }
-        
-        self.filterChain.setValueOfLastFilter(filterPoint, forKey: "inputPosition")
-    
+
         // Filter
-        filterChain.inputImage = ciImage
-        
+        let filterChain = self.filterController.currentFilterChain
+//        filterChain.setValueOfLastFilter(filterPoint, forKey: "inputPosition")
+        filterChain.setValue(ciImage, forKey: "inputImage")
+
         let filteredCIImage = filterChain.outputImage!
         let filteredCGImage = ciContext.createCGImage(filteredCIImage, from: filteredCIImage.extent)
-        
+
         DispatchQueue.main.async {
             self.filteredPreviewLayer?.contents = filteredCGImage
         }

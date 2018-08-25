@@ -14,8 +14,56 @@ class ViewController: UIViewController {
     let uiImagePicker = UIImagePickerController()
     
     @IBOutlet weak var cameraView: UIView!
-    
     @IBOutlet weak var cameraPreviewView: UIView!
+    
+    @IBOutlet weak var bottomButtons: UIStackView!
+    
+    @IBOutlet weak var editorView: UIView!
+    
+    var bottomOverlayViewState: BottomOverlayViewState = .none {
+        willSet {
+            if let view = bottomOverlayViewState.getUIView(self) {
+                let viewSize = view.frame.size
+                var viewOrigin = view.frame.origin
+                viewOrigin.y = self.view.frame.maxY
+                let viewClosedFrame = CGRect(origin: viewOrigin, size: viewSize)
+                
+                UIView.animate(withDuration: 0.3,
+                               animations: {
+                                view.frame = viewClosedFrame
+                                view.alpha = 0.0 },
+                               completion: { _ in view.isHidden = true })
+            }
+            else {
+                UIView.animate(withDuration: 0.3,
+                               animations: { self.bottomButtons.alpha = 0.0 },
+                               completion: { _ in self.bottomButtons.isHidden = true })
+            }
+        }
+        didSet {
+            if let view = bottomOverlayViewState.getUIView(self) {
+                let window = UIApplication.shared.keyWindow
+                let bottomPadding = window!.safeAreaInsets.bottom
+                
+                let viewSize = view.frame.size
+                var viewOrigin = view.frame.origin
+                viewOrigin.y -= (viewSize.height + bottomPadding)
+                let viewOpenedFrame = CGRect(origin: viewOrigin, size: viewSize)
+                
+                view.isHidden = false
+                UIView.animate(withDuration: 0.3) {
+                    view.frame = viewOpenedFrame
+                    view.alpha = 1.0
+                }
+            }
+            else {
+                self.bottomButtons.isHidden = false
+                UIView.animate(withDuration: 0.3) {
+                    self.bottomButtons.alpha = 1.0
+                }
+            }
+        }
+    }
     
     @IBOutlet weak var cameraSwitchingButton: UIButton!
     @IBOutlet weak var flashButton: UIButton!
@@ -31,7 +79,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var focusAreaImage: UIImageView!
     @IBOutlet weak var captureEffectView: UIView!
     
-    // Constraints
+    // Preview Constraints
     @IBOutlet weak var cameraViewConstraintAspectNomal: NSLayoutConstraint!
     @IBOutlet weak var cameraViewConstraintAspectSquare: NSLayoutConstraint!
     @IBOutlet weak var cameraViewConstraintAspectWide: NSLayoutConstraint!
@@ -41,7 +89,7 @@ class ViewController: UIViewController {
     var cameraViewConstraintCenterWide: NSLayoutConstraint!
 }
 
-//MARK: - @IBAction & @objc
+// MARK: - @IBAction & @objc
 extension ViewController {
     @IBAction func switchCameras(_ sender: UIButton) {
         try? cameraController.switchCameras()
@@ -111,6 +159,15 @@ extension ViewController {
         }
     }
     
+    @IBAction func setting(_ sender: UIButton) {
+        switch self.bottomOverlayViewState {
+        case .none:
+            self.bottomOverlayViewState = .edit
+        case .edit:
+            self.bottomOverlayViewState = .none
+        }
+    }
+    
     @objc func capturePreviewViewTaped(sender : UITapGestureRecognizer) {
         if sender.state == .ended {
             let tapedPoint = sender.location(in: self.cameraPreviewView)
@@ -139,6 +196,10 @@ extension ViewController {
         } 
     }
     
+    @IBAction func edit(_ sender: UIButton) {
+        self.bottomOverlayViewState = .edit
+    }
+    
     @objc func prepareCameraController() {
         cameraController.timerCountLable = self.timerCountLable
         cameraController.focusAreaDefaultImage = self.focusAreaDefaultImage
@@ -161,7 +222,7 @@ extension ViewController {
     }
 }
 
-//MARK: - Override member
+// MARK: - Override member
 extension ViewController {
     override var prefersStatusBarHidden: Bool {
         return true
@@ -223,6 +284,13 @@ extension ViewController {
         self.innerCaptureImage.tintColor = UIColor.init(hue: 0.0, saturation: 0.0, brightness: 0.9, alpha: 1.0)
     }
     
+    override func viewWillLayoutSubviews() {
+        print("viewWillLayoutSubviews")
+        if self.bottomOverlayViewState != .none {
+            self.bottomOverlayViewState = .none
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.prepareCameraController()
@@ -236,5 +304,21 @@ extension ViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+extension ViewController {
+    enum BottomOverlayViewState {
+        case none
+        case edit
+        
+        func getUIView(_ viewController: ViewController) -> UIView? {
+            switch self {
+            case .none:
+                return nil
+            case .edit:
+                return viewController.editorView
+            }
+        }
     }
 }

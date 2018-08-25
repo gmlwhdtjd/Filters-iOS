@@ -1,6 +1,6 @@
 //
 //  ColorOverlay.swift
-//  Custom Filters
+//  Filters
 //
 //  Created by Hui Jong Lee on 2018. 7. 30..
 //  Copyright © 2018년 Hui Jong Lee. All rights reserved.
@@ -45,6 +45,17 @@ class ColorOverlay: CIFilter {
     override func setDefaults() {
         self.inputImage = nil
         self.inputColor = CIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+    }
+    
+    override func value(forKey key: String) -> Any? {
+        switch key {
+        case "inputImage":
+            return self.inputImage
+        case "inputColor":
+            return self.inputColor
+        default:
+            return super.value(forKey: key)
+        }
     }
     
     override func setValue(_ value: Any?, forKey key: String) {

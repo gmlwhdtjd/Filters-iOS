@@ -1,6 +1,6 @@
 //
 //  ChromaticAberration.swift
-//  Custom Filters
+//  Filters
 //
 //  Created by Hui Jong Lee on 2018. 8. 6..
 //  Copyright © 2018년 Hui Jong Lee. All rights reserved.
@@ -27,11 +27,11 @@ class ChromaticAberration: CIFilter {
             "inputImage": [kCIAttributeClass: "CIImage"],
             
             "inputIntensity": [kCIAttributeClass: "NSNumber",
-                               kCIAttributeDefault: 0,
-                               kCIAttributeIdentity: 0,
-                               kCIAttributeMin: 0,
-                               kCIAttributeSliderMin: 0,
-                               kCIAttributeSliderMax: 1,
+                               kCIAttributeDefault: CGFloat(0.0),
+                               kCIAttributeIdentity: CGFloat(0.0),
+                               kCIAttributeMin: CGFloat(0.0),
+                               kCIAttributeSliderMin: CGFloat(0.0),
+                               kCIAttributeSliderMax: CGFloat(1.0),
                                kCIAttributeType: kCIAttributeTypeScalar],
             
             "outputImage": [kCIAttributeClass: "CIImage"]
@@ -59,6 +59,17 @@ class ChromaticAberration: CIFilter {
     override func setDefaults() {
         self.inputImage = nil
         self.inputIntensity = 0.0
+    }
+    
+    override func value(forKey key: String) -> Any? {
+        switch key {
+        case "inputImage":
+            return self.inputImage
+        case "inputIntensity":
+            return self.inputIntensity
+        default:
+            return super.value(forKey: key)
+        }
     }
     
     override func setValue(_ value: Any?, forKey key: String) {

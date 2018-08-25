@@ -1,6 +1,6 @@
 //
 //  ChromaticAberrationKernel.metal
-//  Custom Filters
+//  Filters
 //
 //  Created by Hui Jong Lee on 2018. 8. 6..
 //  Copyright © 2018년 Hui Jong Lee. All rights reserved.

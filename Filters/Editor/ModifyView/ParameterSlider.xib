@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ParameterSlider" customModule="Filters" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="ffM-uL-XYM"/>
+                <outlet property="slider" destination="ecr-At-14Z" id="qNh-jQ-w2Y"/>
+                <outlet property="titleLabel" destination="DYY-PK-7aT" id="mjo-vG-SAi"/>
+                <outlet property="valueLabel" destination="kL9-G9-BZY" id="Bzv-mZ-27i"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="386" height="53"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ecr-At-14Z">
+                    <rect key="frame" x="-2" y="20" width="390" height="31"/>
+                    <connections>
+                        <action selector="sliderValueChanged:" destination="-1" eventType="valueChanged" id="3oM-aK-Dff"/>
+                    </connections>
+                </slider>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYY-PK-7aT" userLabel="Tilte">
+                    <rect key="frame" x="0.0" y="0.0" width="25" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="+0.01" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kL9-G9-BZY" userLabel="Value">
+                    <rect key="frame" x="351" y="0.0" width="35" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="35" id="zxf-24-3CK"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <constraints>
+                <constraint firstItem="DYY-PK-7aT" firstAttribute="top" secondItem="3oM-Gh-wUa" secondAttribute="top" id="2Zw-tJ-eMa"/>
+                <constraint firstItem="kL9-G9-BZY" firstAttribute="top" secondItem="3oM-Gh-wUa" secondAttribute="top" id="H64-4j-kCY"/>
+                <constraint firstItem="ecr-At-14Z" firstAttribute="top" secondItem="kL9-G9-BZY" secondAttribute="bottom" constant="5" id="LoM-Q9-a35"/>
+                <constraint firstItem="3oM-Gh-wUa" firstAttribute="trailing" secondItem="ecr-At-14Z" secondAttribute="trailing" id="RFt-OF-w7N"/>
+                <constraint firstItem="DYY-PK-7aT" firstAttribute="leading" secondItem="3oM-Gh-wUa" secondAttribute="leading" id="Seh-ID-VM1"/>
+                <constraint firstItem="ecr-At-14Z" firstAttribute="leading" secondItem="3oM-Gh-wUa" secondAttribute="leading" id="cVC-o4-jb6"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="3oM-Gh-wUa"/>
+            <point key="canvasLocation" x="-379" y="-144.5"/>
+        </view>
+    </objects>
+</document>

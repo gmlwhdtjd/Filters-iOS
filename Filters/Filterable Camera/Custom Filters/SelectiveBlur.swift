@@ -1,6 +1,6 @@
 //
 //  SelectiveBlur.swift
-//  Custom Filters
+//  Filters
 //
 //  Created by Hui Jong Lee on 2018. 8. 5..
 //  Copyright © 2018년 Hui Jong Lee. All rights reserved.
@@ -12,7 +12,7 @@ import Foundation
 class SelectiveBlur: CIFilter {
     var inputImage: CIImage?
 
-    private var inputPosition: CGPoint = CGPoint(x: 0.0, y: 0.0)
+    private var inputPosition: CGPoint = CGPoint(x: 0.5, y: 0.5)
     private var inputRadius: CGFloat = 1.0
     private var inputIntensity: CGFloat = 0.0
     
@@ -33,19 +33,19 @@ class SelectiveBlur: CIFilter {
                               kCIAttributeType: kCIAttributeTypePosition],
             
             "inputRadius": [kCIAttributeClass: "NSNumber",
-                            kCIAttributeDefault: 0,
-                            kCIAttributeIdentity: 0,
-                            kCIAttributeMin: 0,
-                            kCIAttributeSliderMin: 0,
-                            kCIAttributeSliderMax: 1,
+                            kCIAttributeDefault: CGFloat(0.0),
+                            kCIAttributeIdentity: CGFloat(0.0),
+                            kCIAttributeMin: CGFloat(0.0),
+                            kCIAttributeSliderMin: CGFloat(0.0),
+                            kCIAttributeSliderMax: CGFloat(1.0),
                             kCIAttributeType: kCIAttributeTypeScalar],
         
             "inputIntensity": [kCIAttributeClass: "NSNumber",
-                               kCIAttributeDefault: 0,
-                               kCIAttributeIdentity: 0,
-                               kCIAttributeMin: 0,
-                               kCIAttributeSliderMin: 0,
-                               kCIAttributeSliderMax: 1,
+                               kCIAttributeDefault: CGFloat(0.0),
+                               kCIAttributeIdentity: CGFloat(0.0),
+                               kCIAttributeMin: CGFloat(0.0),
+                               kCIAttributeSliderMin: CGFloat(0.0),
+                               kCIAttributeSliderMax: CGFloat(1.0),
                                kCIAttributeType: kCIAttributeTypeScalar],
             
             "outputImage": [kCIAttributeClass: "CIImage"]
@@ -61,9 +61,24 @@ class SelectiveBlur: CIFilter {
     
     override func setDefaults() {
         self.inputImage = nil
-        self.inputPosition = CGPoint(x: 0.0, y: 0.0)
+        self.inputPosition = CGPoint(x: 0.5, y: 0.5)
         self.inputRadius = 1.0
         self.inputIntensity = 0.0
+    }
+    
+    override func value(forKey key: String) -> Any? {
+        switch key {
+        case "inputImage":
+            return self.inputImage
+        case "inputPosition":
+            return self.inputPosition
+        case "inputRadius":
+            return self.inputRadius
+        case "inputIntensity":
+            return self.inputIntensity
+        default:
+            return super.value(forKey: key)
+        }
     }
     
     override func setValue(_ value: Any?, forKey key: String) {

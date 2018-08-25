@@ -8,13 +8,12 @@
 
 import UIKit
 
+// MARK: - Extension for UIDevice
 //
 // This extension has been referenced and modified from stackoverflow.
 //
 // Original Source
 // https://stackoverflow.com/questions/26028918/how-to-determine-the-current-iphone-device-model
-//
-// Modified by Hui Jong Lee
 //
 public extension UIDevice {
     static let modelName: String = {
@@ -132,5 +131,20 @@ extension UIImageOrientation {
             case .rightMirrored:    return "rightMirrored"
             }
         }
+    }
+}
+
+// MARK: - Extension for Collection
+//
+// This extension has been referenced and modified from stackoverflow.
+//
+// Original Source
+// https://stackoverflow.com/questions/25329186/safe-bounds-checked-array-lookup-in-swift-through-optional-bindings/25330930#25330930
+//
+extension Collection {
+    
+    /// Returns the element at the specified index iff it is within bounds, otherwise nil.
+    subscript (safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8618A304211994A600511418 /* FilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8618A303211994A600511418 /* FilterController.swift */; };
 		865356F921186B890015A622 /* ChromaticAberrationKernel.metal in Sources */ = {isa = PBXBuildFile; fileRef = 865356F821186B890015A622 /* ChromaticAberrationKernel.metal */; };
 		865356FB21186BB80015A622 /* ChromaticAberration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865356FA21186BB80015A622 /* ChromaticAberration.swift */; };
 		8674025920E7547800D3900F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8674025820E7547800D3900F /* Assets.xcassets */; };
@@ -14,15 +15,23 @@
 		86938249210EF9C7008FEE25 /* CIFilterChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86938248210EF9C7008FEE25 /* CIFilterChain.swift */; };
 		8693824B210F1C16008FEE25 /* ColorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8693824A210F1C16008FEE25 /* ColorOverlay.swift */; };
 		869D0AC520F49D60004F1CAF /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869D0AC420F49D60004F1CAF /* CameraController.swift */; };
+		86A0E657212172AB000DEDE5 /* FilterRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A0E656212172AB000DEDE5 /* FilterRecipeViewController.swift */; };
+		86A0E65921217E5C000DEDE5 /* FilterRecipeComponentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A0E65821217E5C000DEDE5 /* FilterRecipeComponentCell.swift */; };
+		86AAD1E4211B4677006DF310 /* CustomFiltersConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AAD1E3211B4677006DF310 /* CustomFiltersConstructor.swift */; };
 		86AD73392107987E003F4F90 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AD73382107987E003F4F90 /* Extension.swift */; };
+		86CDEA15212D624E00465CA1 /* ParameterSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CDEA14212D624E00465CA1 /* ParameterSlider.swift */; };
 		86F9DC9220DA5714003C676C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F9DC9120DA5714003C676C /* AppDelegate.swift */; };
 		86F9DC9420DA5714003C676C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F9DC9320DA5714003C676C /* ViewController.swift */; };
 		86F9DC9720DA5714003C676C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86F9DC9520DA5714003C676C /* Main.storyboard */; };
 		86F9DC9C20DA5716003C676C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86F9DC9A20DA5716003C676C /* LaunchScreen.storyboard */; };
+		86FBBFE4212D593700B350F6 /* ParameterSlider.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86FBBFE3212D593700B350F6 /* ParameterSlider.xib */; };
+		86FC89F6212BF56E001C4DF9 /* EditorNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FC89F5212BF56E001C4DF9 /* EditorNavigationController.swift */; };
+		86FC89FA212BF5ED001C4DF9 /* ModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FC89F9212BF5ED001C4DF9 /* ModifyViewController.swift */; };
 		86FF83F4211618E600693F4A /* SelectiveBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FF83F3211618E600693F4A /* SelectiveBlur.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8618A303211994A600511418 /* FilterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterController.swift; sourceTree = "<group>"; };
 		865356F821186B890015A622 /* ChromaticAberrationKernel.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ChromaticAberrationKernel.metal; sourceTree = "<group>"; };
 		865356FA21186BB80015A622 /* ChromaticAberration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaticAberration.swift; sourceTree = "<group>"; };
 		8674025820E7547800D3900F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -30,13 +39,20 @@
 		86938248210EF9C7008FEE25 /* CIFilterChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIFilterChain.swift; sourceTree = "<group>"; };
 		8693824A210F1C16008FEE25 /* ColorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOverlay.swift; sourceTree = "<group>"; };
 		869D0AC420F49D60004F1CAF /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		86A0E656212172AB000DEDE5 /* FilterRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRecipeViewController.swift; sourceTree = "<group>"; };
+		86A0E65821217E5C000DEDE5 /* FilterRecipeComponentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRecipeComponentCell.swift; sourceTree = "<group>"; };
+		86AAD1E3211B4677006DF310 /* CustomFiltersConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFiltersConstructor.swift; sourceTree = "<group>"; };
 		86AD73382107987E003F4F90 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		86CDEA14212D624E00465CA1 /* ParameterSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterSlider.swift; sourceTree = "<group>"; };
 		86F9DC8E20DA5714003C676C /* Filters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Filters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86F9DC9120DA5714003C676C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		86F9DC9320DA5714003C676C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		86F9DC9620DA5714003C676C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		86F9DC9B20DA5716003C676C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86F9DC9D20DA5716003C676C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		86FBBFE3212D593700B350F6 /* ParameterSlider.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParameterSlider.xib; sourceTree = "<group>"; };
+		86FC89F5212BF56E001C4DF9 /* EditorNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationController.swift; sourceTree = "<group>"; };
+		86FC89F9212BF5ED001C4DF9 /* ModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyViewController.swift; sourceTree = "<group>"; };
 		86FF83F3211618E600693F4A /* SelectiveBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveBlur.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -54,6 +70,7 @@
 		8638DF6E20FF1E7C0042E369 /* Custom Filters */ = {
 			isa = PBXGroup;
 			children = (
+				86AAD1E3211B4677006DF310 /* CustomFiltersConstructor.swift */,
 				8693824A210F1C16008FEE25 /* ColorOverlay.swift */,
 				867549B7211072D700605F1F /* Grain.swift */,
 				86FF83F3211618E600693F4A /* SelectiveBlur.swift */,
@@ -67,10 +84,21 @@
 			isa = PBXGroup;
 			children = (
 				869D0AC420F49D60004F1CAF /* CameraController.swift */,
+				8618A303211994A600511418 /* FilterController.swift */,
 				86938248210EF9C7008FEE25 /* CIFilterChain.swift */,
 				8638DF6E20FF1E7C0042E369 /* Custom Filters */,
 			);
 			path = "Filterable Camera";
+			sourceTree = "<group>";
+		};
+		86A0E65121216974000DEDE5 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				86FC89F5212BF56E001C4DF9 /* EditorNavigationController.swift */,
+				86FC89F7212BF57E001C4DF9 /* FilterRecipeView */,
+				86FC89F8212BF5A8001C4DF9 /* ModifyView */,
+			);
+			path = Editor;
 			sourceTree = "<group>";
 		};
 		86F9DC8520DA5714003C676C = {
@@ -97,11 +125,31 @@
 				86AD73382107987E003F4F90 /* Extension.swift */,
 				86F9DC9520DA5714003C676C /* Main.storyboard */,
 				8674025820E7547800D3900F /* Assets.xcassets */,
+				86A0E65121216974000DEDE5 /* Editor */,
 				869D0AC320F49D44004F1CAF /* Filterable Camera */,
 				86F9DC9A20DA5716003C676C /* LaunchScreen.storyboard */,
 				86F9DC9D20DA5716003C676C /* Info.plist */,
 			);
 			path = Filters;
+			sourceTree = "<group>";
+		};
+		86FC89F7212BF57E001C4DF9 /* FilterRecipeView */ = {
+			isa = PBXGroup;
+			children = (
+				86A0E656212172AB000DEDE5 /* FilterRecipeViewController.swift */,
+				86A0E65821217E5C000DEDE5 /* FilterRecipeComponentCell.swift */,
+			);
+			path = FilterRecipeView;
+			sourceTree = "<group>";
+		};
+		86FC89F8212BF5A8001C4DF9 /* ModifyView */ = {
+			isa = PBXGroup;
+			children = (
+				86FC89F9212BF5ED001C4DF9 /* ModifyViewController.swift */,
+				86FBBFE3212D593700B350F6 /* ParameterSlider.xib */,
+				86CDEA14212D624E00465CA1 /* ParameterSlider.swift */,
+			);
+			path = ModifyView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +210,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86FBBFE4212D593700B350F6 /* ParameterSlider.xib in Resources */,
 				86F9DC9C20DA5716003C676C /* LaunchScreen.storyboard in Resources */,
 				8674025920E7547800D3900F /* Assets.xcassets in Resources */,
 				86F9DC9720DA5714003C676C /* Main.storyboard in Resources */,
@@ -176,14 +225,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				867549B8211072D700605F1F /* Grain.swift in Sources */,
+				86CDEA15212D624E00465CA1 /* ParameterSlider.swift in Sources */,
 				865356FB21186BB80015A622 /* ChromaticAberration.swift in Sources */,
 				865356F921186B890015A622 /* ChromaticAberrationKernel.metal in Sources */,
 				86AD73392107987E003F4F90 /* Extension.swift in Sources */,
 				86938249210EF9C7008FEE25 /* CIFilterChain.swift in Sources */,
 				869D0AC520F49D60004F1CAF /* CameraController.swift in Sources */,
+				86A0E657212172AB000DEDE5 /* FilterRecipeViewController.swift in Sources */,
+				86A0E65921217E5C000DEDE5 /* FilterRecipeComponentCell.swift in Sources */,
 				86F9DC9420DA5714003C676C /* ViewController.swift in Sources */,
 				86F9DC9220DA5714003C676C /* AppDelegate.swift in Sources */,
 				8693824B210F1C16008FEE25 /* ColorOverlay.swift in Sources */,
+				86FC89F6212BF56E001C4DF9 /* EditorNavigationController.swift in Sources */,
+				86FC89FA212BF5ED001C4DF9 /* ModifyViewController.swift in Sources */,
+				8618A304211994A600511418 /* FilterController.swift in Sources */,
+				86AAD1E4211B4677006DF310 /* CustomFiltersConstructor.swift in Sources */,
 				86FF83F4211618E600693F4A /* SelectiveBlur.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,6 +325,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -324,6 +381,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

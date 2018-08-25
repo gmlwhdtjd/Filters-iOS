@@ -1,6 +1,6 @@
 //
 //  CIFilterChain.swift
-//  Filterable Camera
+//  Filters
 //
 //  Created by Hui Jong Lee on 2018. 7. 30..
 //  Copyright © 2018년 Hui Jong Lee. All rights reserved.
@@ -8,47 +8,66 @@
 
 import CoreImage
 
-class CIFIlterChain {
+class CIFIlterChain: CIFilter {
     var inputImage: CIImage?
     
-    private var filters: [CIFilter]
+    var components: [CIFilter] = []
     
-    init() {
-        filters = []
+    override var inputKeys: [String] {
+        get { return ["inputImage"] }
     }
-
-    final func addFilter(_ filter: CIFilter) {
-        filters.append(filter)
+    override var outputKeys: [String] {
+        get { return ["outputImage"] }
     }
-    final func addFilter(_ filterChain: CIFIlterChain)  {
-        filters.append(contentsOf: filterChain.filters)
+    
+    override func setDefaults() {
+        self.inputImage = nil
     }
-    final func addFilter(name: String) {
-        guard let newFilter = CIFilter(name: name) else {
-            return
+    
+    override func value(forKey key: String) -> Any? {
+        switch key {
+        case "inputImage":
+            return self.inputImage
+        default:
+            return super.value(forKey: key)
+        }
+    }
+    
+    override func setValue(_ value: Any?, forKey key: String) {
+        switch key {
+        case "inputImage":
+            self.inputImage = value as? CIImage
+        default:
+            super.setValue(value, forKey: key)
+        }
+    }
+    
+    override func copy() -> Any {
+        let filterChain = CIFIlterChain()
+        
+        for component in components {
+            let inputKeys = component.inputKeys.filter{ $0 != "inputImage" }
+            let keyValues = component.dictionaryWithValues(forKeys: inputKeys)
+            filterChain.components.append(CIFilter(name: component.name, withInputParameters: keyValues)!)
         }
         
-        filters.append(newFilter)
+        return filterChain
     }
     
-    final func setValueOfLastFilter(_ value: Any?, forKey key: String) {
-        filters.last?.setValue(value, forKey: key)
-    }
-    
-    final var outputImage: CIImage? {
-        guard let firstFilter = filters.first else {  // Passthought
+    override var outputImage: CIImage? {
+        guard let firstFilter = components.first else {  // Pass throught
             return inputImage
         }
         
         // Some filter doesn't have inputImage, and user can use it for first filter
         if firstFilter.inputKeys.contains("inputImage") {
-            filters.first?.setValue(inputImage, forKey: "inputImage")
+            components.first?.setValue(inputImage, forKey: "inputImage")
         }
         
-        for i in 0..<filters.count - 1 {
-            filters[i + 1].setValue(filters[i].outputImage, forKey: "inputImage")
+        for i in 0..<components.count - 1 {
+            components[i + 1].setValue(components[i].outputImage, forKey: "inputImage")
         }
         
-        return filters.last?.outputImage ?? inputImage
+        return components.last?.outputImage ?? inputImage
     }
 }
