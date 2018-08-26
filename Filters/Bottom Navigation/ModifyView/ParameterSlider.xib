@@ -43,11 +43,6 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Eg-Xa-s1t">
-                    <rect key="frame" x="253" y="0.0" width="46" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button"/>
-                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="DYY-PK-7aT" firstAttribute="top" secondItem="3oM-Gh-wUa" secondAttribute="top" id="2Zw-tJ-eMa"/>
