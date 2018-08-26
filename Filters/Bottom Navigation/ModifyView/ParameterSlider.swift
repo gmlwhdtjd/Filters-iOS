@@ -48,10 +48,15 @@ class ParameterSlider: UIView {
 }
 
 extension ParameterSlider {
-    func setSliderValue(_ value: Float) {
-        DispatchQueue.main.async {
-            self.slider.value = value
-            self.sliderValueChanged(self)
+   var value: Float {
+        set(value) {
+            DispatchQueue.main.async {
+                self.slider.value = value
+                self.sliderValueChanged(self)
+            }
+        }
+        get {
+            return self.slider.value
         }
     }
     

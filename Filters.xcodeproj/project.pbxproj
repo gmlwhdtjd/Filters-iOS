@@ -12,6 +12,9 @@
 		865356FB21186BB80015A622 /* ChromaticAberration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865356FA21186BB80015A622 /* ChromaticAberration.swift */; };
 		8674025920E7547800D3900F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8674025820E7547800D3900F /* Assets.xcassets */; };
 		867549B8211072D700605F1F /* Grain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867549B7211072D700605F1F /* Grain.swift */; };
+		8692BE262132B54200306D9B /* ColorSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8692BE252132B54200306D9B /* ColorSlider.swift */; };
+		8692BE282132B55200306D9B /* ColorSlider.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8692BE272132B55200306D9B /* ColorSlider.xib */; };
+		8692BE2B2132CDCA00306D9B /* Hue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8692BE2A2132CDCA00306D9B /* Hue.framework */; };
 		86938249210EF9C7008FEE25 /* CIFilterChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86938248210EF9C7008FEE25 /* CIFilterChain.swift */; };
 		8693824B210F1C16008FEE25 /* ColorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8693824A210F1C16008FEE25 /* ColorOverlay.swift */; };
 		869D0AC520F49D60004F1CAF /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869D0AC420F49D60004F1CAF /* CameraController.swift */; };
@@ -37,6 +40,9 @@
 		865356FA21186BB80015A622 /* ChromaticAberration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaticAberration.swift; sourceTree = "<group>"; };
 		8674025820E7547800D3900F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		867549B7211072D700605F1F /* Grain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grain.swift; sourceTree = "<group>"; };
+		8692BE252132B54200306D9B /* ColorSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSlider.swift; sourceTree = "<group>"; };
+		8692BE272132B55200306D9B /* ColorSlider.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorSlider.xib; sourceTree = "<group>"; };
+		8692BE2A2132CDCA00306D9B /* Hue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hue.framework; path = Carthage/Build/iOS/Hue.framework; sourceTree = "<group>"; };
 		86938248210EF9C7008FEE25 /* CIFilterChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIFilterChain.swift; sourceTree = "<group>"; };
 		8693824A210F1C16008FEE25 /* ColorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOverlay.swift; sourceTree = "<group>"; };
 		869D0AC420F49D60004F1CAF /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
@@ -63,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8692BE2B2132CDCA00306D9B /* Hue.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +95,14 @@
 				86AE104E213162C90043CC51 /* BottomButtonsViewController.swift */,
 			);
 			path = BottomButtonsView;
+			sourceTree = "<group>";
+		};
+		8692BE292132CDCA00306D9B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8692BE2A2132CDCA00306D9B /* Hue.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		869D0AC320F49D44004F1CAF /* Filterable Camera */ = {
@@ -117,6 +132,7 @@
 			children = (
 				86F9DC9020DA5714003C676C /* Filters */,
 				86F9DC8F20DA5714003C676C /* Products */,
+				8692BE292132CDCA00306D9B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -159,6 +175,8 @@
 				86FC89F9212BF5ED001C4DF9 /* ModifyViewController.swift */,
 				86FBBFE3212D593700B350F6 /* ParameterSlider.xib */,
 				86CDEA14212D624E00465CA1 /* ParameterSlider.swift */,
+				8692BE272132B55200306D9B /* ColorSlider.xib */,
+				8692BE252132B54200306D9B /* ColorSlider.swift */,
 			);
 			path = ModifyView;
 			sourceTree = "<group>";
@@ -173,6 +191,7 @@
 				86F9DC8A20DA5714003C676C /* Sources */,
 				86F9DC8B20DA5714003C676C /* Frameworks */,
 				86F9DC8C20DA5714003C676C /* Resources */,
+				8692BE2C2132CDE200306D9B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -225,10 +244,28 @@
 				86F9DC9C20DA5716003C676C /* LaunchScreen.storyboard in Resources */,
 				8674025920E7547800D3900F /* Assets.xcassets in Resources */,
 				86F9DC9720DA5714003C676C /* Main.storyboard in Resources */,
+				8692BE282132B55200306D9B /* ColorSlider.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8692BE2C2132CDE200306D9B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Hue.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		86F9DC8A20DA5714003C676C /* Sources */ = {
@@ -237,6 +274,7 @@
 			files = (
 				867549B8211072D700605F1F /* Grain.swift in Sources */,
 				86CDEA15212D624E00465CA1 /* ParameterSlider.swift in Sources */,
+				8692BE262132B54200306D9B /* ColorSlider.swift in Sources */,
 				865356FB21186BB80015A622 /* ChromaticAberration.swift in Sources */,
 				865356F921186B890015A622 /* ChromaticAberrationKernel.metal in Sources */,
 				86AD73392107987E003F4F90 /* Extension.swift in Sources */,
@@ -404,6 +442,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TR37P5STBJ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Filters/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -422,6 +464,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TR37P5STBJ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Filters/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

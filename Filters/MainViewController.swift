@@ -109,7 +109,6 @@ extension MainViewController {
     }
     
     
-    
     @objc func prepareCameraController() {
         cameraController.timerCountLable = self.timerCountLable
         cameraController.focusAreaDefaultImage = self.focusAreaDefaultImage

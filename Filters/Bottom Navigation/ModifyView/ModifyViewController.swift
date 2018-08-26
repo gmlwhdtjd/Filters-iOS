@@ -35,7 +35,7 @@ class ModifyViewController: UIViewController {
                 let parameterSlider = ParameterSlider()
                 
                 parameterSlider.titleLabel.text = String(key.dropFirst(5))
-                parameterSlider.setSliderValue(Float(value))
+                parameterSlider.value = Float(value)
                 
                 if let attrubute = currentComponent.attributes[key] as? [String: Any] {
                     parameterSlider.slider.minimumValue = Float(attrubute["CIAttributeSliderMin"] as! CGFloat)
@@ -47,6 +47,16 @@ class ModifyViewController: UIViewController {
                 }
                 
                 modifyerStackView.addArrangedSubview(parameterSlider)
+            }
+            else if let color = value as? CIColor {
+                let colorSlider = ColorSlider()
+                
+                colorSlider.setColor(color)
+                colorSlider.colorChangedCallback = { color in
+                    self.currentComponent?.setValue(color, forKey: key)
+                }
+                
+                modifyerStackView.addArrangedSubview(colorSlider)
             }
         }
     }

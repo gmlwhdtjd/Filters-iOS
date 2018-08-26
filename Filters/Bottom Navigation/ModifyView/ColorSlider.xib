@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ColorSlider" customModule="Filters" customModuleProvider="target">
+            <connections>
+                <outlet property="colorSlider" destination="VFK-lo-qPG" id="iLV-Q2-6X6"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="WRk-Tb-Oxk"/>
+                <outlet property="intensitySlider" destination="9Nq-uH-Jsb" id="sdt-JW-EJE"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="376" height="99"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="VFK-lo-qPG">
+                    <rect key="frame" x="-2" y="63" width="380" height="37"/>
+                    <connections>
+                        <action selector="sliderValueChanged:" destination="-1" eventType="valueChanged" id="Abs-Ly-Dn3"/>
+                    </connections>
+                </slider>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Nq-uH-Jsb" customClass="ParameterSlider" customModule="Filters" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="376" height="53"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="53" id="gnD-08-e6e"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="9Nq-uH-Jsb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="0ej-AY-nri"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9Nq-uH-Jsb" secondAttribute="trailing" id="1sk-GA-oIQ"/>
+                <constraint firstItem="VFK-lo-qPG" firstAttribute="top" secondItem="9Nq-uH-Jsb" secondAttribute="bottom" constant="10" id="2iU-1h-N7B"/>
+                <constraint firstItem="9Nq-uH-Jsb" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="4h6-P5-cu2"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="VFK-lo-qPG" secondAttribute="bottom" id="Tew-Pc-mwX"/>
+                <constraint firstItem="VFK-lo-qPG" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="YhX-7m-fwf"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="VFK-lo-qPG" secondAttribute="trailing" id="hko-kv-udH"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="23" y="-225.5"/>
+        </view>
+    </objects>
+</document>
