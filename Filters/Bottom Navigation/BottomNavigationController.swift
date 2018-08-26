@@ -1,14 +1,14 @@
 //
-//  EditerNavigationController.swift
+//  BottomNavigationController.swift
 //  Filters
 //
-//  Created by Hui Jong Lee on 2018. 8. 21..
+//  Created by Hui Jong Lee on 2018. 8. 25..
 //  Copyright © 2018년 Hui Jong Lee. All rights reserved.
 //
 
 import UIKit
 
-class EditorNavigationController: UINavigationController {
+class BottomNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +18,7 @@ class EditorNavigationController: UINavigationController {
 
 // MARK: - UINavigationControllerDelegate for Animated Transitioning
 
-extension EditorNavigationController: UINavigationControllerDelegate {
+extension BottomNavigationController: UINavigationControllerDelegate {
     class animatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
         func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
             return 0.3
@@ -27,7 +27,7 @@ extension EditorNavigationController: UINavigationControllerDelegate {
         func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
             guard let fromView = transitionContext.view(forKey: .from),
                 let toView = transitionContext.view(forKey: .to) else {
-                return
+                    return
             }
             
             let onRect = fromView.frame

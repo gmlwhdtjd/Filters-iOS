@@ -19,13 +19,14 @@
 		86A0E65921217E5C000DEDE5 /* FilterRecipeComponentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A0E65821217E5C000DEDE5 /* FilterRecipeComponentCell.swift */; };
 		86AAD1E4211B4677006DF310 /* CustomFiltersConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AAD1E3211B4677006DF310 /* CustomFiltersConstructor.swift */; };
 		86AD73392107987E003F4F90 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AD73382107987E003F4F90 /* Extension.swift */; };
+		86AE104C2131625F0043CC51 /* BottomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AE104B2131625F0043CC51 /* BottomNavigationController.swift */; };
+		86AE104F213162C90043CC51 /* BottomButtonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AE104E213162C90043CC51 /* BottomButtonsViewController.swift */; };
 		86CDEA15212D624E00465CA1 /* ParameterSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CDEA14212D624E00465CA1 /* ParameterSlider.swift */; };
 		86F9DC9220DA5714003C676C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F9DC9120DA5714003C676C /* AppDelegate.swift */; };
-		86F9DC9420DA5714003C676C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F9DC9320DA5714003C676C /* ViewController.swift */; };
+		86F9DC9420DA5714003C676C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F9DC9320DA5714003C676C /* MainViewController.swift */; };
 		86F9DC9720DA5714003C676C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86F9DC9520DA5714003C676C /* Main.storyboard */; };
 		86F9DC9C20DA5716003C676C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86F9DC9A20DA5716003C676C /* LaunchScreen.storyboard */; };
 		86FBBFE4212D593700B350F6 /* ParameterSlider.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86FBBFE3212D593700B350F6 /* ParameterSlider.xib */; };
-		86FC89F6212BF56E001C4DF9 /* EditorNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FC89F5212BF56E001C4DF9 /* EditorNavigationController.swift */; };
 		86FC89FA212BF5ED001C4DF9 /* ModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FC89F9212BF5ED001C4DF9 /* ModifyViewController.swift */; };
 		86FF83F4211618E600693F4A /* SelectiveBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FF83F3211618E600693F4A /* SelectiveBlur.swift */; };
 /* End PBXBuildFile section */
@@ -43,15 +44,16 @@
 		86A0E65821217E5C000DEDE5 /* FilterRecipeComponentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRecipeComponentCell.swift; sourceTree = "<group>"; };
 		86AAD1E3211B4677006DF310 /* CustomFiltersConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFiltersConstructor.swift; sourceTree = "<group>"; };
 		86AD73382107987E003F4F90 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		86AE104B2131625F0043CC51 /* BottomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationController.swift; sourceTree = "<group>"; };
+		86AE104E213162C90043CC51 /* BottomButtonsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButtonsViewController.swift; sourceTree = "<group>"; };
 		86CDEA14212D624E00465CA1 /* ParameterSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterSlider.swift; sourceTree = "<group>"; };
 		86F9DC8E20DA5714003C676C /* Filters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Filters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86F9DC9120DA5714003C676C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		86F9DC9320DA5714003C676C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		86F9DC9320DA5714003C676C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		86F9DC9620DA5714003C676C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		86F9DC9B20DA5716003C676C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86F9DC9D20DA5716003C676C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86FBBFE3212D593700B350F6 /* ParameterSlider.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParameterSlider.xib; sourceTree = "<group>"; };
-		86FC89F5212BF56E001C4DF9 /* EditorNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationController.swift; sourceTree = "<group>"; };
 		86FC89F9212BF5ED001C4DF9 /* ModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyViewController.swift; sourceTree = "<group>"; };
 		86FF83F3211618E600693F4A /* SelectiveBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveBlur.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,6 +82,14 @@
 			path = "Custom Filters";
 			sourceTree = "<group>";
 		};
+		86726321213168FB00A60224 /* BottomButtonsView */ = {
+			isa = PBXGroup;
+			children = (
+				86AE104E213162C90043CC51 /* BottomButtonsViewController.swift */,
+			);
+			path = BottomButtonsView;
+			sourceTree = "<group>";
+		};
 		869D0AC320F49D44004F1CAF /* Filterable Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,14 +101,15 @@
 			path = "Filterable Camera";
 			sourceTree = "<group>";
 		};
-		86A0E65121216974000DEDE5 /* Editor */ = {
+		86AE104D2131628A0043CC51 /* Bottom Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				86FC89F5212BF56E001C4DF9 /* EditorNavigationController.swift */,
+				86AE104B2131625F0043CC51 /* BottomNavigationController.swift */,
+				86726321213168FB00A60224 /* BottomButtonsView */,
 				86FC89F7212BF57E001C4DF9 /* FilterRecipeView */,
 				86FC89F8212BF5A8001C4DF9 /* ModifyView */,
 			);
-			path = Editor;
+			path = "Bottom Navigation";
 			sourceTree = "<group>";
 		};
 		86F9DC8520DA5714003C676C = {
@@ -121,11 +132,11 @@
 			isa = PBXGroup;
 			children = (
 				86F9DC9120DA5714003C676C /* AppDelegate.swift */,
-				86F9DC9320DA5714003C676C /* ViewController.swift */,
+				86F9DC9320DA5714003C676C /* MainViewController.swift */,
 				86AD73382107987E003F4F90 /* Extension.swift */,
 				86F9DC9520DA5714003C676C /* Main.storyboard */,
 				8674025820E7547800D3900F /* Assets.xcassets */,
-				86A0E65121216974000DEDE5 /* Editor */,
+				86AE104D2131628A0043CC51 /* Bottom Navigation */,
 				869D0AC320F49D44004F1CAF /* Filterable Camera */,
 				86F9DC9A20DA5716003C676C /* LaunchScreen.storyboard */,
 				86F9DC9D20DA5716003C676C /* Info.plist */,
@@ -231,12 +242,13 @@
 				86AD73392107987E003F4F90 /* Extension.swift in Sources */,
 				86938249210EF9C7008FEE25 /* CIFilterChain.swift in Sources */,
 				869D0AC520F49D60004F1CAF /* CameraController.swift in Sources */,
+				86AE104F213162C90043CC51 /* BottomButtonsViewController.swift in Sources */,
 				86A0E657212172AB000DEDE5 /* FilterRecipeViewController.swift in Sources */,
+				86AE104C2131625F0043CC51 /* BottomNavigationController.swift in Sources */,
 				86A0E65921217E5C000DEDE5 /* FilterRecipeComponentCell.swift in Sources */,
-				86F9DC9420DA5714003C676C /* ViewController.swift in Sources */,
+				86F9DC9420DA5714003C676C /* MainViewController.swift in Sources */,
 				86F9DC9220DA5714003C676C /* AppDelegate.swift in Sources */,
 				8693824B210F1C16008FEE25 /* ColorOverlay.swift in Sources */,
-				86FC89F6212BF56E001C4DF9 /* EditorNavigationController.swift in Sources */,
 				86FC89FA212BF5ED001C4DF9 /* ModifyViewController.swift in Sources */,
 				8618A304211994A600511418 /* FilterController.swift in Sources */,
 				86AAD1E4211B4677006DF310 /* CustomFiltersConstructor.swift in Sources */,

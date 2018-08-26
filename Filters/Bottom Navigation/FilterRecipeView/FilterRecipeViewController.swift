@@ -12,7 +12,7 @@ class FilterRecipeViewController: UIViewController{
     let filterController = FilterController.shared
     
     var numberOfComponents = 0
-    var selectedComponentIndex: Int?
+    var selectedComponent: CIFilter?
     
     @IBOutlet weak var collectionView: UICollectionView!
 }
@@ -20,29 +20,40 @@ class FilterRecipeViewController: UIViewController{
 extension FilterRecipeViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector (self.backToHome))
+        self.view.addGestureRecognizer(gesture)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "toModifyView":
             if let modifyViewController = segue.destination as? ModifyViewController {
-                modifyViewController.currentCompnentIndex = selectedComponentIndex!
+                modifyViewController.currentComponent = selectedComponent
             }
         default:
             break
         }
     }
     
+    @objc func backToHome(sender : UITapGestureRecognizer) {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @IBAction func back(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func componentSelected(_ sender: UIButton) {
         let point = sender.convert(CGPoint.zero, to: collectionView)
         let indexPath = collectionView!.indexPathForItem(at: point)!
-        self.selectedComponentIndex = indexPath.row
         
-        if self.selectedComponentIndex == self.numberOfComponents {
+        if self.numberOfComponents == indexPath.row{
             // add More
             print("Add More")
         }
         else {
+            selectedComponent = filterController.currentFilterChain.components[indexPath.row]
             performSegue(withIdentifier: "toModifyView", sender: self)
         }
     }

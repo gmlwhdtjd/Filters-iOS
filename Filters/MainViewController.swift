@@ -7,71 +7,17 @@
 //
 
 import UIKit
-import Photos
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     let cameraController = CameraController()
-    let uiImagePicker = UIImagePickerController()
     
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var cameraPreviewView: UIView!
-    
-    @IBOutlet weak var bottomButtons: UIStackView!
-    
-    @IBOutlet weak var editorView: UIView!
-    
-    var bottomOverlayViewState: BottomOverlayViewState = .none {
-        willSet {
-            if let view = bottomOverlayViewState.getUIView(self) {
-                let viewSize = view.frame.size
-                var viewOrigin = view.frame.origin
-                viewOrigin.y = self.view.frame.maxY
-                let viewClosedFrame = CGRect(origin: viewOrigin, size: viewSize)
-                
-                UIView.animate(withDuration: 0.3,
-                               animations: {
-                                view.frame = viewClosedFrame
-                                view.alpha = 0.0 },
-                               completion: { _ in view.isHidden = true })
-            }
-            else {
-                UIView.animate(withDuration: 0.3,
-                               animations: { self.bottomButtons.alpha = 0.0 },
-                               completion: { _ in self.bottomButtons.isHidden = true })
-            }
-        }
-        didSet {
-            if let view = bottomOverlayViewState.getUIView(self) {
-                let window = UIApplication.shared.keyWindow
-                let bottomPadding = window!.safeAreaInsets.bottom
-                
-                let viewSize = view.frame.size
-                var viewOrigin = view.frame.origin
-                viewOrigin.y -= (viewSize.height + bottomPadding)
-                let viewOpenedFrame = CGRect(origin: viewOrigin, size: viewSize)
-                
-                view.isHidden = false
-                UIView.animate(withDuration: 0.3) {
-                    view.frame = viewOpenedFrame
-                    view.alpha = 1.0
-                }
-            }
-            else {
-                self.bottomButtons.isHidden = false
-                UIView.animate(withDuration: 0.3) {
-                    self.bottomButtons.alpha = 1.0
-                }
-            }
-        }
-    }
     
     @IBOutlet weak var cameraSwitchingButton: UIButton!
     @IBOutlet weak var flashButton: UIButton!
     
     @IBOutlet weak var timerButton: UIButton!
-    
-    @IBOutlet weak var captureButton: UIButton!
-    @IBOutlet weak var innerCaptureImage: UIImageView!
     
     // For camera Animation
     @IBOutlet weak var timerCountLable: UILabel!
@@ -83,14 +29,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var cameraViewConstraintAspectNomal: NSLayoutConstraint!
     @IBOutlet weak var cameraViewConstraintAspectSquare: NSLayoutConstraint!
     @IBOutlet weak var cameraViewConstraintAspectWide: NSLayoutConstraint!
-    @IBOutlet weak var bottomButtonStackViewConstraintTop: NSLayoutConstraint!
     
     var cameraViewConstraintCenterDefualt: NSLayoutConstraint!
     var cameraViewConstraintCenterWide: NSLayoutConstraint!
 }
 
 // MARK: - @IBAction & @objc
-extension ViewController {
+extension MainViewController {
     @IBAction func switchCameras(_ sender: UIButton) {
         try? cameraController.switchCameras()
     }
@@ -160,45 +105,10 @@ extension ViewController {
     }
     
     @IBAction func setting(_ sender: UIButton) {
-        switch self.bottomOverlayViewState {
-        case .none:
-            self.bottomOverlayViewState = .edit
-        case .edit:
-            self.bottomOverlayViewState = .none
-        }
-    }
-    
-    @objc func capturePreviewViewTaped(sender : UITapGestureRecognizer) {
-        if sender.state == .ended {
-            let tapedPoint = sender.location(in: self.cameraPreviewView)
-            try? cameraController.setPointOfInterest(point: tapedPoint)
-        }
-    }
-    
-    @IBAction func album(_ sender: UIButton) {
-        //TODO: 이 코드는 간단하게 앨범을 보여주는 코드임 -> 추후 라이브러리를 사용하던 새로 만들던 해서 깔끔하게 만들 필요가 있음
-        uiImagePicker.allowsEditing = false
-        uiImagePicker.sourceType = .savedPhotosAlbum
-        uiImagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .savedPhotosAlbum)!
-        present(uiImagePicker, animated: true, completion: nil)
-    }
-    
-    @IBAction func captureImage(_ sender: UIButton) {
-        cameraController.captureImage {(image, error) in
-            guard let image = image else {
-                print(error ?? "Image capture error")
-                return
-            }
         
-            try? PHPhotoLibrary.shared().performChangesAndWait {
-                PHAssetChangeRequest.creationRequestForAsset(from: image)
-            }
-        } 
     }
     
-    @IBAction func edit(_ sender: UIButton) {
-        self.bottomOverlayViewState = .edit
-    }
+    
     
     @objc func prepareCameraController() {
         cameraController.timerCountLable = self.timerCountLable
@@ -223,7 +133,7 @@ extension ViewController {
 }
 
 // MARK: - Override member
-extension ViewController {
+extension MainViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -244,9 +154,6 @@ extension ViewController {
             else {
                 defualtConstant = (viewSize.height - (viewSize.width / 3.0 * 4.0)) / -2.0
                 wideConstant = 0.0
-                
-                // for overlay bottom button on camera preview
-                self.view.removeConstraint(self.bottomButtonStackViewConstraintTop)
             }
             
             self.cameraViewConstraintCenterDefualt = NSLayoutConstraint(item: self.cameraView, attribute: .centerY,
@@ -276,19 +183,6 @@ extension ViewController {
         
         configureCameraViewConstraint()
         configureLifecycleNotifications()
-        
-        let gesture = UITapGestureRecognizer(target: self, action:  #selector (self.capturePreviewViewTaped))
-        self.cameraPreviewView.addGestureRecognizer(gesture)
-        
-        self.innerCaptureImage.image = innerCaptureImage.image?.withRenderingMode(.alwaysTemplate)
-        self.innerCaptureImage.tintColor = UIColor.init(hue: 0.0, saturation: 0.0, brightness: 0.9, alpha: 1.0)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        print("viewWillLayoutSubviews")
-        if self.bottomOverlayViewState != .none {
-            self.bottomOverlayViewState = .none
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -299,26 +193,5 @@ extension ViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.stopCameraController()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-}
-
-extension ViewController {
-    enum BottomOverlayViewState {
-        case none
-        case edit
-        
-        func getUIView(_ viewController: ViewController) -> UIView? {
-            switch self {
-            case .none:
-                return nil
-            case .edit:
-                return viewController.editorView
-            }
-        }
     }
 }

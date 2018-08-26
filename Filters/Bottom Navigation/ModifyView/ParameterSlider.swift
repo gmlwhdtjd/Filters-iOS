@@ -35,30 +35,16 @@ class ParameterSlider: UIView {
         contentView.autoresizingMask = [.flexibleWidth]
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addConstraint(NSLayoutConstraint(item: contentView, attribute: .height,
-                                              relatedBy: .equal,
-                                              toItem: nil, attribute: .notAnAttribute,
-                                              multiplier: 1, constant: 53))
+        self.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        self.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        self.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        
+        self.heightAnchor.constraint(greaterThanOrEqualToConstant: 53).isActive = true
+        contentView.heightAnchor.constraint(equalToConstant: 53).isActive = true
         
         self.isUserInteractionEnabled = true
         contentView.isUserInteractionEnabled = true
     }
-    
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        if let result = super.hitTest(point, with: event) {
-            return result
-        }
-        else {
-            let contentViewPoint = self.convert(point, to: contentView)
-            if let result = contentView.hitTest(contentViewPoint, with: event) {
-                return result
-            }
-            else {
-                return nil
-            }
-        }
-    }
-
 }
 
 extension ParameterSlider {
@@ -70,27 +56,14 @@ extension ParameterSlider {
     }
     
     @IBAction func sliderValueChanged(_ sender: Any) {
-        var valueText = ""
-        if slider.value < 0 {
-            valueText += "-"
-        }
-        else if slider.value > 0{
-            valueText += "+"
-        }
-        valueText += String(format: "%.02f", abs(slider.value))
-        valueLabel.text = valueText
-        
         let trackRect = slider.trackRect(forBounds: slider.bounds)
         let thumbRect = slider.thumbRect(forBounds: slider.bounds, trackRect: trackRect, value: self.slider.value)
         
-        var valueLabelCenterX = thumbRect.minX + thumbRect.width / 2
+        let valueLabelCenterX = thumbRect.minX + thumbRect.width / 2
         let minValueLabelCenterX = titleLabel.frame.maxX + valueLabel.frame.width / 2 + 5
         
-        if valueLabelCenterX < minValueLabelCenterX {
-            valueLabelCenterX = minValueLabelCenterX
-        }
-        
-        valueLabel.center = CGPoint(x: valueLabelCenterX, y: valueLabel.center.y)
+        valueLabel.center = CGPoint(x: valueLabelCenterX > minValueLabelCenterX ? valueLabelCenterX : minValueLabelCenterX, y: valueLabel.center.y)
+        valueLabel.text = (slider.value == 0 ? "" : (slider.value > 0 ? "+" : "-")) + String(format: "%.02f", abs(slider.value))
         
         if let callback = self.sliderValueChangedCallback {
             callback(slider.value)
