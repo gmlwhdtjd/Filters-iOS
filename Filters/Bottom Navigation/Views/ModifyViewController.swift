@@ -64,8 +64,4 @@ class ModifyViewController: UIViewController {
     @objc func backToHome(sender : UITapGestureRecognizer) {
         navigationController?.popToRootViewController(animated: true)
     }
-    
-    @IBAction func back(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }
 }

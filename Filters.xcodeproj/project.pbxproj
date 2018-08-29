@@ -10,6 +10,7 @@
 		8618A304211994A600511418 /* FilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8618A303211994A600511418 /* FilterController.swift */; };
 		865356F921186B890015A622 /* ChromaticAberrationKernel.metal in Sources */ = {isa = PBXBuildFile; fileRef = 865356F821186B890015A622 /* ChromaticAberrationKernel.metal */; };
 		865356FB21186BB80015A622 /* ChromaticAberration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865356FA21186BB80015A622 /* ChromaticAberration.swift */; };
+		8665ECC92133EF710099361B /* AddComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8665ECC82133EF710099361B /* AddComponentViewController.swift */; };
 		8674025920E7547800D3900F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8674025820E7547800D3900F /* Assets.xcassets */; };
 		867549B8211072D700605F1F /* Grain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867549B7211072D700605F1F /* Grain.swift */; };
 		8692BE262132B54200306D9B /* ColorSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8692BE252132B54200306D9B /* ColorSlider.swift */; };
@@ -38,6 +39,7 @@
 		8618A303211994A600511418 /* FilterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterController.swift; sourceTree = "<group>"; };
 		865356F821186B890015A622 /* ChromaticAberrationKernel.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ChromaticAberrationKernel.metal; sourceTree = "<group>"; };
 		865356FA21186BB80015A622 /* ChromaticAberration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaticAberration.swift; sourceTree = "<group>"; };
+		8665ECC82133EF710099361B /* AddComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddComponentViewController.swift; sourceTree = "<group>"; };
 		8674025820E7547800D3900F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		867549B7211072D700605F1F /* Grain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grain.swift; sourceTree = "<group>"; };
 		8692BE252132B54200306D9B /* ColorSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSlider.swift; sourceTree = "<group>"; };
@@ -89,12 +91,22 @@
 			path = "Custom Filters";
 			sourceTree = "<group>";
 		};
-		86726321213168FB00A60224 /* BottomButtonsView */ = {
+		8665ECC72133EF1E0099361B /* AddComponentView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddComponentView;
+			sourceTree = "<group>";
+		};
+		86726321213168FB00A60224 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				86AE104E213162C90043CC51 /* BottomButtonsViewController.swift */,
+				86A0E656212172AB000DEDE5 /* FilterRecipeViewController.swift */,
+				8665ECC82133EF710099361B /* AddComponentViewController.swift */,
+				86FC89F9212BF5ED001C4DF9 /* ModifyViewController.swift */,
 			);
-			path = BottomButtonsView;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		8692BE292132CDCA00306D9B /* Frameworks */ = {
@@ -120,9 +132,10 @@
 			isa = PBXGroup;
 			children = (
 				86AE104B2131625F0043CC51 /* BottomNavigationController.swift */,
-				86726321213168FB00A60224 /* BottomButtonsView */,
-				86FC89F7212BF57E001C4DF9 /* FilterRecipeView */,
-				86FC89F8212BF5A8001C4DF9 /* ModifyView */,
+				86A0E65821217E5C000DEDE5 /* FilterRecipeComponentCell.swift */,
+				86726321213168FB00A60224 /* Views */,
+				86FC89F8212BF5A8001C4DF9 /* Modifier */,
+				8665ECC72133EF1E0099361B /* AddComponentView */,
 			);
 			path = "Bottom Navigation";
 			sourceTree = "<group>";
@@ -160,25 +173,15 @@
 			path = Filters;
 			sourceTree = "<group>";
 		};
-		86FC89F7212BF57E001C4DF9 /* FilterRecipeView */ = {
+		86FC89F8212BF5A8001C4DF9 /* Modifier */ = {
 			isa = PBXGroup;
 			children = (
-				86A0E656212172AB000DEDE5 /* FilterRecipeViewController.swift */,
-				86A0E65821217E5C000DEDE5 /* FilterRecipeComponentCell.swift */,
-			);
-			path = FilterRecipeView;
-			sourceTree = "<group>";
-		};
-		86FC89F8212BF5A8001C4DF9 /* ModifyView */ = {
-			isa = PBXGroup;
-			children = (
-				86FC89F9212BF5ED001C4DF9 /* ModifyViewController.swift */,
 				86FBBFE3212D593700B350F6 /* ParameterSlider.xib */,
 				86CDEA14212D624E00465CA1 /* ParameterSlider.swift */,
 				8692BE272132B55200306D9B /* ColorSlider.xib */,
 				8692BE252132B54200306D9B /* ColorSlider.swift */,
 			);
-			path = ModifyView;
+			path = Modifier;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,6 +279,7 @@
 				86CDEA15212D624E00465CA1 /* ParameterSlider.swift in Sources */,
 				8692BE262132B54200306D9B /* ColorSlider.swift in Sources */,
 				865356FB21186BB80015A622 /* ChromaticAberration.swift in Sources */,
+				8665ECC92133EF710099361B /* AddComponentViewController.swift in Sources */,
 				865356F921186B890015A622 /* ChromaticAberrationKernel.metal in Sources */,
 				86AD73392107987E003F4F90 /* Extension.swift in Sources */,
 				86938249210EF9C7008FEE25 /* CIFilterChain.swift in Sources */,

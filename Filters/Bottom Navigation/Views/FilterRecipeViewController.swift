@@ -44,13 +44,17 @@ extension FilterRecipeViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func unwindToFilterRecipeView(sender: UIStoryboardSegue) {
+        collectionView.reloadData()
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func componentSelected(_ sender: UIButton) {
         let point = sender.convert(CGPoint.zero, to: collectionView)
         let indexPath = collectionView!.indexPathForItem(at: point)!
         
         if self.numberOfComponents == indexPath.row{
-            // add More
-            print("Add More")
+            performSegue(withIdentifier: "toAddComponentView", sender: self)
         }
         else {
             selectedComponent = filterController.currentFilterChain.components[indexPath.row]
