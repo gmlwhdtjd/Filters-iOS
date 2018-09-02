@@ -27,6 +27,11 @@ class FilterController {
     
     private init() {
         CustomFiltersConstructor.registerFilters()
+        currentFilterChain.components.append(CIFilter(name: "CIColorControls")!)
+        currentFilterChain.components.append(CIFilter(name: "CIExposureAdjust")!)
+        currentFilterChain.components.append(CIFilter(name: "CIHighlightShadowAdjust")!)
+        currentFilterChain.components.append(CIFilter(name: "ColorOverlay")!)
+        currentFilterChain.components.append(CIFilter(name: "CIUnsharpMask")!)
     }
 }
 

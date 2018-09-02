@@ -15,17 +15,18 @@ class ModifyViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var modifyerStackView: UIStackView!
     
-    var currentComponent: CIFilter?
+    var componentIndex: Int?
+    private var currentComponent: CIFilter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let gesture = UITapGestureRecognizer(target: self, action:  #selector (self.backToHome))
-        self.view.addGestureRecognizer(gesture)
-        
-        guard let currentComponent = self.currentComponent else {
+        guard let index = self.componentIndex,
+            index >= 0, index < filterController.currentFilterChain.components.count else {
             return
         }
+        
+        self.currentComponent = filterController.currentFilterChain.components[index]
         
         let inputKeys = currentComponent.inputKeys.filter{ $0 != "inputImage" }
         let keyValues = currentComponent.dictionaryWithValues(forKeys: inputKeys)
@@ -59,6 +60,24 @@ class ModifyViewController: UIViewController {
                 modifyerStackView.addArrangedSubview(colorSlider)
             }
         }
+    }
+    
+    @IBAction func deleteComponent(_ sender: Any) {
+        func deleteAndBack() {
+            guard let index = self.componentIndex,
+                index >= 0, index < filterController.currentFilterChain.components.count else {
+                    return
+            }
+            filterController.currentFilterChain.components.remove(at: index)
+            performSegue(withIdentifier: "unwindToFilterRecipeView", sender: self)
+        }
+        
+        let alert = UIAlertController(title: nil, message: "This filter will be deleted from current filter recipe.", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Delete Filter", style: .destructive, handler: { _ in
+            deleteAndBack()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func backToHome(sender : UITapGestureRecognizer) {

@@ -13,20 +13,17 @@ class AddComponentViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     private let filterController = FilterController.shared
-    private var selectedFilterComponent: CIFilter?
+    private var selectedComponentIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let gesture = UITapGestureRecognizer(target: self, action:  #selector (self.backToHome))
-        self.view.addGestureRecognizer(gesture)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "toModifyView":
             if let modifyViewController = segue.destination as? ModifyViewController {
-                modifyViewController.currentComponent = selectedFilterComponent
+                modifyViewController.componentIndex = selectedComponentIndex
             }
         default:
             break
@@ -35,20 +32,6 @@ class AddComponentViewController: UIViewController {
     
     @objc func backToHome(sender : UITapGestureRecognizer) {
         navigationController?.popToRootViewController(animated: true)
-    }
-    
-    @IBAction func back(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func componentSelected(_ sender: UIButton) {
-        let point = sender.convert(CGPoint.zero, to: collectionView)
-        let indexPath = collectionView!.indexPathForItem(at: point)!
-    
-        selectedFilterComponent = CIFilter(name: FilterController.componentsList[indexPath.row])
-        filterController.currentFilterChain.components.append(selectedFilterComponent!)
-        
-        performSegue(withIdentifier: "toModifyView", sender: self)
     }
 }
 
@@ -67,6 +50,8 @@ extension AddComponentViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("\(indexPath.row) with collectionView")
+        filterController.currentFilterChain.components.append(CIFilter(name: FilterController.componentsList[indexPath.row])!)
+        selectedComponentIndex = filterController.currentFilterChain.components.endIndex - 1
+        performSegue(withIdentifier: "toModifyView", sender: self)
     }
 }

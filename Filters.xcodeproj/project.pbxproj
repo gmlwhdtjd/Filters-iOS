@@ -91,13 +91,6 @@
 			path = "Custom Filters";
 			sourceTree = "<group>";
 		};
-		8665ECC72133EF1E0099361B /* AddComponentView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AddComponentView;
-			sourceTree = "<group>";
-		};
 		86726321213168FB00A60224 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,7 +128,6 @@
 				86A0E65821217E5C000DEDE5 /* FilterRecipeComponentCell.swift */,
 				86726321213168FB00A60224 /* Views */,
 				86FC89F8212BF5A8001C4DF9 /* Modifier */,
-				8665ECC72133EF1E0099361B /* AddComponentView */,
 			);
 			path = "Bottom Navigation";
 			sourceTree = "<group>";

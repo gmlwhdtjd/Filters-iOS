@@ -31,8 +31,6 @@ class FilterRecipeComponentCell: UICollectionViewCell {
                 componentLabel.text = "Color Distortion"
             case "SelectiveBlur":
                 componentLabel.text = "Blur"
-            case "AddMore":
-                componentLabel.text = "Add More"
             default:
                 componentLabel.text = nil
             }
@@ -40,10 +38,9 @@ class FilterRecipeComponentCell: UICollectionViewCell {
     }
     
     @IBOutlet private weak var componentLabel: UILabel!
-    @IBOutlet private weak var componentButton: UIButton!
     
     override func prepareForReuse() {
         self.componentLabel.text = ""
-        self.componentButton.imageView?.image = nil
+//        self.componentButton.imageView?.image = nil
     }
 }

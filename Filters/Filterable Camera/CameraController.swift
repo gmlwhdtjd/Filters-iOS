@@ -476,15 +476,24 @@ extension CameraController {
     }
 
     public func stop() throws {
-        guard let captureSession = self.captureSession,
-            let previewLayer = self.previewLayer,
-            let filteredPreviewLayer = self.filteredPreviewLayer,
-            captureSession.isRunning else {
-                throw CameraControllerError.captureSessionIsMissing
+        if let captureSession = self.captureSession {
+            captureSession.stopRunning()
+
+            for input in captureSession.inputs {
+                captureSession.removeInput(input)
+            }
+
+            for output in captureSession.outputs {
+                captureSession.removeOutput(output)
+            }
         }
-        captureSession.stopRunning()
-        previewLayer.removeFromSuperlayer()
-        filteredPreviewLayer.removeFromSuperlayer()
+        self.captureSession = nil
+        
+        self.previewLayer?.removeFromSuperlayer()
+        self.previewLayer = nil
+        
+        self.filteredPreviewLayer?.removeFromSuperlayer()
+        self.filteredPreviewLayer = nil
         
         self.frontCamera = nil
         self.rearCamera = nil
@@ -494,10 +503,6 @@ extension CameraController {
         
         self.photoOutput = nil
         self.previewVideoOutput = nil
-        
-        self.previewLayer = nil
-        self.filteredPreviewLayer = nil
-        self.captureSession = nil
         
         self.timerCountLable?.layer.removeAllAnimations()
         self.focusAreaDefaultImage?.layer.removeAllAnimations()
@@ -628,7 +633,7 @@ extension CameraController: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
 
         // Filter
-        let filterChain = self.filterController.currentFilterChain
+        let filterChain = self.filterController.currentFilterChain.copy() as! CIFilter
 //        filterChain.setValueOfLastFilter(filterPoint, forKey: "inputPosition")
         filterChain.setValue(ciImage, forKey: "inputImage")
 
