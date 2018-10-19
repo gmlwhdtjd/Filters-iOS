@@ -81,8 +81,8 @@ public extension UIDevice {
 }
 
 // MARK: - Extension for UIImageOrientation
-extension UIImageOrientation {
-    func rotate(degree: Int) -> UIImageOrientation {
+extension UIImage.Orientation {
+    func rotate(degree: Int) -> UIImage.Orientation {
         switch degree {
         case 90, -270:
             switch self {
@@ -104,7 +104,7 @@ extension UIImageOrientation {
         }
     }
     
-    func mirrored() -> UIImageOrientation {
+    func mirrored() -> UIImage.Orientation {
         switch self {
         case .up:               return .upMirrored
         case .down:             return .downMirrored

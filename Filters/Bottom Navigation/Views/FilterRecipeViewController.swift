@@ -40,9 +40,6 @@ extension FilterRecipeViewController {
     }
     
     @objc func handleLongGesture(gesture: UILongPressGestureRecognizer) {
-        
-       
-        
         switch(gesture.state) {
         case .began:
             guard let selectedIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else {
@@ -59,6 +56,7 @@ extension FilterRecipeViewController {
     }
     
     @IBAction func back(_ sender: Any) {
+        filterController.saveCurrentFilterRecipe()
         navigationController?.popViewController(animated: true)
     }
     
@@ -105,5 +103,42 @@ extension FilterRecipeViewController: UICollectionViewDataSource, UICollectionVi
                 filterController.currentFilterChain.components.swapAt(index, index + 1)
             }
         }
+    }
+}
+
+class FilterRecipeComponentCell: UICollectionViewCell {
+    
+    var filterName: String? {
+        didSet {
+            switch filterName {
+            case "CIExposureAdjust":
+                componentLabel.text = "Exposure"
+            case "CIHighlightShadowAdjust":
+                componentLabel.text = "Tone"
+            case "CIColorControls":
+                componentLabel.text = "Basic"
+            case "CIUnsharpMask":
+                componentLabel.text = "Sharpen"
+            case "CIVignette":
+                componentLabel.text = "Vignette"
+            case "ColorOverlay":
+                componentLabel.text = "Color"
+            case "Grain":
+                componentLabel.text = "Grain"
+            case "ChromaticAberration":
+                componentLabel.text = "Color Distortion"
+            case "SelectiveBlur":
+                componentLabel.text = "Blur"
+            default:
+                componentLabel.text = nil
+            }
+        }
+    }
+    
+    @IBOutlet private weak var componentLabel: UILabel!
+    
+    override func prepareForReuse() {
+        self.componentLabel.text = ""
+        //        self.componentButton.imageView?.image = nil
     }
 }

@@ -17,7 +17,7 @@ class BottomButtonsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.mainViewController = parent?.parent as! MainViewController
+        self.mainViewController = parent?.parent as? MainViewController
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector (self.capturePreviewViewTaped))
         self.view.addGestureRecognizer(gesture)
@@ -33,6 +33,10 @@ class BottomButtonsViewController: UIViewController {
                 try? mainViewController.cameraController.setPointOfInterest(point: tapedPoint)
             }
         }
+    }
+    
+    @IBAction func test(_ sender: Any) {
+        performSegue(withIdentifier: "toFilterRecipeListView", sender: self)
     }
     
     @IBAction func album(_ sender: UIButton) {

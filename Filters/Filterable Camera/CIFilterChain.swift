@@ -48,7 +48,7 @@ class CIFIlterChain: CIFilter {
         for component in components {
             let inputKeys = component.inputKeys.filter{ $0 != "inputImage" }
             let keyValues = component.dictionaryWithValues(forKeys: inputKeys)
-            filterChain.components.append(CIFilter(name: component.name, withInputParameters: keyValues)!)
+            filterChain.components.append(CIFilter(name: component.name, parameters: keyValues)!)
         }
         
         return filterChain
@@ -69,5 +69,100 @@ class CIFIlterChain: CIFilter {
         }
         
         return components.last?.outputImage ?? inputImage
+    }
+}
+
+extension CIFIlterChain {
+    convenience init(withJson json: Data?) throws {
+        self.init()
+        
+        guard let json = json,
+            let jsonObject = try JSONSerialization.jsonObject(with: json) as? [[String:Any]] else {
+            throw jsonLoadError.cannotConvertJsonToCIFilterChain
+        }
+        
+        for component in jsonObject {
+            guard let name = component["name"] as? String else {
+                throw jsonLoadError.NameIsMissing
+            }
+            guard let rowParameters = component["parameters"] as? [[String:Any]] else {
+                throw jsonLoadError.ParametersAreMissing
+            }
+            
+            var parameters: [String:Any] = [:]
+            
+            for rowParameter in rowParameters {
+                guard let key = rowParameter["key"] as? String,
+                    let type = rowParameter["type"] as? String else {
+                    throw jsonLoadError.cannotConvertParameter
+                }
+                switch type {
+                case "CGFloat":
+                    guard let value = rowParameter["value"] as? CGFloat else {
+                        throw jsonLoadError.cannotConvertParameter
+                    }
+                    parameters[key] = value
+                case "CIColor":
+                    guard let red = rowParameter["red"] as? CGFloat,
+                        let green = rowParameter["green"] as? CGFloat,
+                        let blue = rowParameter["blue"] as? CGFloat,
+                        let alpha = rowParameter["alpha"] as? CGFloat else {
+                        throw jsonLoadError.cannotConvertParameter
+                    }
+                    parameters[key] = CIColor(red: red, green: green, blue: blue, alpha: alpha)
+                default:
+                    break
+                }
+            }
+            
+            self.components.append(CIFilter(name: name, parameters: parameters)!)
+        }
+    }
+    
+    var json: Data {
+        get {
+            var rowComponent: [[String:Any]] = []
+            
+            for component in components {
+                var rowParameters: [[String:Any]] = []
+                
+                let inputKeys = component.inputKeys.filter{ $0 != "inputImage" }
+                for (key, value) in component.dictionaryWithValues(forKeys: inputKeys) {
+                    var rowParameter: [String:Any] = ["key":key]
+                    
+                    if let value = value as? CGFloat {
+                        rowParameter["type"] = "CGFloat"
+                        rowParameter["value"] = value
+                    }
+                    else if let color = value as? CIColor {
+                        rowParameter["type"] = "CIColor"
+                        rowParameter["red"] = color.red
+                        rowParameter["green"] = color.green
+                        rowParameter["blue"] = color.blue
+                        rowParameter["alpha"] = color.alpha
+                    }
+                    else {
+                        continue;
+                    }
+                    
+                    rowParameters.append(rowParameter)
+                }
+                
+                let dictionary: [String:Any] = [
+                    "name": component.name,
+                    "parameters":rowParameters
+                ]
+                rowComponent.append(dictionary)
+            }
+            
+            return try! JSONSerialization.data(withJSONObject: rowComponent, options: .sortedKeys)
+        }
+    }
+    
+    enum jsonLoadError: Error {
+        case cannotConvertJsonToCIFilterChain
+        case NameIsMissing
+        case ParametersAreMissing
+        case cannotConvertParameter
     }
 }

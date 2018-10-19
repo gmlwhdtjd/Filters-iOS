@@ -1,1 +1,2 @@
 github "hyperoslo/Hue" "master"
+github "stephencelis/SQLite.swift" ~> 0.11.5

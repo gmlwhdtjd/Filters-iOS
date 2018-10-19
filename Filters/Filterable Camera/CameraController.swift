@@ -11,7 +11,7 @@ import CoreMotion
 import AVFoundation
 
 class CameraController: NSObject {
-    private let ciContext = CIContext(options: [kCIImageColorSpace: NSNull()])
+    private let ciContext = CIContext()//CIContext(options: [CIContextOption.workingColorSpace: NSNull()])
     private var captureSession: AVCaptureSession?
     
     private var frontCamera: AVCaptureDevice?
@@ -285,7 +285,7 @@ extension CameraController {
    
         self.filteredPreviewLayer = CALayer()
         self.filteredPreviewLayer?.masksToBounds = true
-        self.filteredPreviewLayer?.contentsGravity = "resizeAspectFill"
+        self.filteredPreviewLayer?.contentsGravity = .resizeAspectFill
         self.filteredPreviewLayer?.frame = view.bounds
         
         view.layer.insertSublayer(self.filteredPreviewLayer!, at: 1)
@@ -544,7 +544,7 @@ extension CameraController: AVCapturePhotoCaptureDelegate {
                                       height: height * aspectRatio)
                     }
                 }
-                func calculateFixedImageOrientation(from imageOrientation: UIImageOrientation) -> UIImageOrientation {
+                func calculateFixedImageOrientation(from imageOrientation: UIImage.Orientation) -> UIImage.Orientation {
                     guard let currentCameraPosition = self.currentCameraPosition else {
                         return imageOrientation
                     }
@@ -690,7 +690,7 @@ extension CameraController {
                 focusAreaImage.transform = CGAffineTransform.init(scaleX: 1.0, y: 1.0)
             }
             UIView.animate(withDuration: 0.15, delay: 0.0,
-                           options: [UIViewAnimationOptions.repeat, UIViewAnimationOptions.autoreverse],
+                           options: [UIView.AnimationOptions.repeat, UIView.AnimationOptions.autoreverse],
                            animations: { focusAreaImage.alpha = 0.3 }, completion: nil)
         }
     }

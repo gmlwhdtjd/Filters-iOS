@@ -6,7 +6,6 @@
 //  Copyright © 2018년 Hui Jong Lee. All rights reserved.
 //
 
-import Darwin
 import CoreImage
 
 class Grain: CIFilter {
@@ -78,7 +77,7 @@ class Grain: CIFilter {
         }
         let random = CIFilter(name: "CIRandomGenerator")
         let randomTransform = CGAffineTransform(scaleX: cropRect.width / 1500, y: cropRect.width / 1500)
-        let transform = randomTransform.translatedBy(x: CGFloat(arc4random_uniform(5000)),y: CGFloat(arc4random_uniform(5000)))
+        let transform = randomTransform.translatedBy(x: CGFloat.random(in: 0 ..< 5000),y: CGFloat.random(in: 0 ..< 5000))
         let randomImage = random?.outputImage?.transformed(by: transform)
         
         let alphaMatrix = CIFilter(name:"CIColorMatrix")

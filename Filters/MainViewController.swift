@@ -172,11 +172,11 @@ extension MainViewController {
         func configureLifecycleNotifications() {
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(prepareCameraController),
-                                                   name: NSNotification.Name.UIApplicationWillEnterForeground,
+                                                   name: UIApplication.willEnterForegroundNotification,
                                                    object: nil)
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(stopCameraController),
-                                                   name: NSNotification.Name.UIApplicationDidEnterBackground,
+                                                   name: UIApplication.didEnterBackgroundNotification,
                                                    object: nil)
         }
         
